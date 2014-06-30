@@ -1,0 +1,119 @@
+body{
+    margin:0;
+    padding: 0;
+    background: #ffffff url("../images/background.jpg") no-repeat right top;
+}
+
+.header{
+    width: 100%;
+    background-color: rgba(0, 131, 250, 0.35);
+    border-bottom: #ffffff 10px solid;
+}
+
+.small-header{
+    height: 100px;
+}
+.logo{
+
+}
+
+.large-logo{
+    width: 50%;
+    padding: 20px;
+    margin: 0px auto;
+}
+.small-logo{
+    width:50%;
+    padding: 20px;
+    margin: 0px;
+    float: left;
+}
+.tabs{
+    color:white;
+    font-size: 2em;
+    float: right;
+    width: 50%;
+}
+.tabs ul{
+    width:100%;
+    list-style: none;
+    display: inline-block;
+    margin:0;
+    padding:0;
+}
+.tabs ul li{
+    margin: 0px;
+    float: left;
+}
+.responsive img{
+    max-width: 100%;
+    height: auto;
+}
+
+.content{
+    color: white;
+    width: 100%;
+    height: auto;
+}
+
+.menu-wrapper{
+    max-width: 720px;
+    height: auto;
+    margin: 70px auto 0px auto;
+    text-align:center;
+}
+
+.menu-wrapper>p{
+    font-size: 1.8em;
+    margin: 0px 0px 45px;
+}
+
+.menu-wrapper ul{
+    list-style: none;
+    width: 100%;
+    display: inline-block;
+    margin:0;
+    padding:0;
+}
+.menu-wrapper li{
+    float: left;
+    margin: 0px 20px;
+    width: 27.7%;
+}
+
+.menu{
+    cursor: pointer;
+    background-color: rgb(81, 207, 172);
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    color: #000000;
+    font-size: 1.5em;
+    box-shadow: 0px 7px 0px rgb(50, 168, 145);
+}
+
+.login{
+    cursor: pointer;
+}
+@media screen and (max-width: 768px) and (max-height: 830px) {
+
+.menu-wrapper{
+
+}
+.menu-wrapper ul{
+    list-style: none;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+.menu-wrapper li{
+    margin: 20px 0px;
+    width:100%;
+}
+
+.menu{
+    width: 40%;
+    margin: 0px auto;
+}
+
+}

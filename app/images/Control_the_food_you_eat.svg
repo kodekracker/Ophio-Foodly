@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="464px" height="42px" viewBox="0 0 464 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0 (7574) - http://www.bohemiancoding.com/sketch -->
+    <title>Control the food you</title>
+    <description>Created with Sketch.</description>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Login" sketch:type="MSArtboardGroup" transform="translate(-559.000000, -339.000000)" font-size="40" font-family="Avenir Next" fill="#FFFFFF" font-weight="normal">
+            <text id="Control-the-food-you" sketch:type="MSTextLayer">
+                <tspan x="558" y="371">Control the food you eat !</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
