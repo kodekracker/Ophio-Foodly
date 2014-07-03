@@ -1,0 +1,23 @@
+<small-header></small-header>
+<div class="content-main">
+	<div class="main-item box" ng-repeat="item in Items | orderBy:'-upvotes'" ng-show="item.category==currentTab['title']">
+		<div class="item-place">
+			<div class="lf-box"></div>
+			<div class="item-desc">{{item.name}}</div>
+		</div>
+		<div class="item-vote sqr-box">{{item.upvotes}}</div>
+		<div class="vote-up sqr-box" ng-class="{true:'inactive', false:'active' }[user.snacks]" ng-click="upVote(item)"></div>
+	</div>
+	<div class="add-item box" ng-show="showIt">
+		<div class="item-place">
+			<div class="lf-box"></div>
+			<div class="element-area">
+				<input type="text" ng-model="itemName" placeholder="Add Item" required>
+			</div>
+		</div>
+		<div class="add-this sqr-box" ng-click="newItem(itemName)"></div>
+	</div>
+	<div class="new-item box">
+		<div class="plus-img" ng-click="show()"></div>
+	</div>
+</div>
