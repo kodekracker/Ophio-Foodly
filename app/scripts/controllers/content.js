@@ -7,47 +7,47 @@
  * # ContentCtrl
  * Controller of the ophioFoodly
  */
-app.controller('ContentCtrl', function ($scope, $location, ItemsStore, Users, Tabs) {
-    $scope.showIt = false;
+app.controller('ContentCtrl', function ($scope, $location, ItemsStore, Users,$routeParams) {
+
+    $scope.tabCategory = $routeParams['category'];
+    $scope.addItemButton = true;
+    $scope.addItemBox = false;
     $scope.orderbyvote = 'upvotes';
     $scope.Items = ItemsStore;
     $scope.user = Users[1];
-    $scope.currentTab = null;
 
-    setCurrentTab();
-
-    $scope.show = function(){
-      $scope.showIt = true;
+    $scope.showAddItemBox = function(){
+        $scope.addItemButton = false;
+        $scope.addItemBox = true;
     };
 
-    $scope.upVote = function(item){
-        var cat = item.category.toLowerCase();
-        if(!$scope.user[cat]){
+    $scope.hideAddItemBox = function(){
+        $scope.addItemButton = true;
+        $scope.addItemBox = false;
+    };
+
+    $scope.userCanVote = function(item){
+        if($.inArray(item.category,$scope.user.votes) < 0)
+            return true;
+        else
+            return false;
+    };
+
+    $scope.upVoteItem = function(item){
+        if($scope.userCanVote(item)){
             item.upvotes++;
-            $scope.user[cat] = true;
+            $scope.user.votes.push(item.category);
         }
-
     };
 
-    $scope.newItem = function(itemName){
-        $scope.counter++;
-        var cat = $scope.currentTab['title'];
-        $scope.Items.push(  { id: getId($scope.Items), name : itemName , upvotes : 0 , category : cat   } );
-        $scope.showIt = false;
+    $scope.addNewItem = function(itemName){
+        $scope.Items.push({ id: getNewId($scope.Items), name : itemName , upvotes : 0 , category : $scope.tabCategory});
+        $scope.hideAddItemBox();
         $scope.itemName = '';
     };
 
-    function getId(array){
+    function getNewId(array){
         return array.length;
     }
 
-    function setCurrentTab(){
-        var title = $location.path().substring(1);
-        if(title=="healthy")
-            $scope.currentTab = Tabs[0];
-        else if(title=="snacks")
-            $scope.currentTab = Tabs[1];
-        else if(title=="drinks")
-            $scope.currentTab = Tabs[2];
-    }
   });

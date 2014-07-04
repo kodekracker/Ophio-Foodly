@@ -27,26 +27,13 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl'
     })
-    .when('/healthy', {
-      templateUrl: 'views/content.html',
-      controller: 'ContentCtrl'
-    })
-    .when('/snacks', {
-      templateUrl: 'views/content.html',
-      controller: 'ContentCtrl'
-    })
-    .when('/drinks', {
+    .when('/:category', {
       templateUrl: 'views/content.html',
       controller: 'ContentCtrl'
     })
     .otherwise({
       redirectTo: '/'
     });
-}).directive('smallHeader', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'views/header.html'
-  };
 });
 
 app.factory("ItemsStore", function(){
@@ -113,36 +100,13 @@ app.factory("Users",function(){
       {
         id : 0,
         name : "Tester 1",
-        healthy : false,
-        snacks : false,
-        drinks : false
+        votes : ["healthy", "snacks"]
       },
       {
         id : 1,
         name : "Tester 2",
-        healthy : true,
-        snacks : false,
-        drinks : true
+        votes : ["snacks"]
       }
   ];
 });
 
-app.factory("Tabs", function(){
-  return [
-      {
-        id : 1,
-        title : "healthy",
-        category : "healthy"
-      },
-      {
-        id : 2,
-        title : "snacks",
-        category : "snacks"
-      },
-      {
-        id : 3,
-        title : "drinks",
-        category : "drinks"
-      }
-  ];
-});
