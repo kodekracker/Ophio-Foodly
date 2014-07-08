@@ -3,7 +3,8 @@ body{
     height: 100%;
     margin:0;
     padding: 0;
-    background: #ffffff url("../images/background.jpg") no-repeat right top;
+    background: #ffffff url("../images/background.jpg") no-repeat;
+    background-attachment: fixed;
     font-size: 20px;
 }
 
@@ -18,7 +19,7 @@ body{
     width: 100%;
     background-color: rgba(0, 131, 250, 0.35);
     border-bottom: #ffffff 10px solid;
-    z-index: 1;
+    z-index: 10;
 }
 
 .small-header{

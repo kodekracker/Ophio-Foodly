@@ -27,7 +27,7 @@ app.controller('ContentCtrl', function ($scope, $location, ItemsStore, Users,$ro
     };
 
     $scope.userCanVote = function(item){
-        if($.inArray(item.category,$scope.user.votes) < 0)
+        if($.inArray(item.id,$scope.user.votes) < 0)
             return true;
         else
             return false;
@@ -36,14 +36,16 @@ app.controller('ContentCtrl', function ($scope, $location, ItemsStore, Users,$ro
     $scope.upVoteItem = function(item){
         if($scope.userCanVote(item)){
             item.upvotes++;
-            $scope.user.votes.push(item.category);
+            $scope.user.votes.push(item.id);
         }
     };
 
     $scope.addNewItem = function(itemName){
-        $scope.Items.push({ id: getNewId($scope.Items), name : itemName , upvotes : 0 , category : $scope.tabCategory});
-        $scope.hideAddItemBox();
-        $scope.itemName = '';
+        if (itemName) {
+            $scope.Items.push({ id: getNewId($scope.Items), name : itemName , upvotes : 0 , category : $scope.tabCategory});
+            $scope.hideAddItemBox();
+            $scope.itemName = '';
+        };
     };
 
     function getNewId(array){

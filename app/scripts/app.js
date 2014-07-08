@@ -100,12 +100,12 @@ app.factory("Users",function(){
       {
         id : 0,
         name : "Tester 1",
-        votes : ["healthy", "snacks"]
+        votes : []
       },
       {
         id : 1,
         name : "Tester 2",
-        votes : ["snacks"]
+        votes : []
       }
   ];
 });
