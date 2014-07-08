@@ -9,7 +9,7 @@
  */
 angular.module('ophioFoodly')
   .controller('LoginCtrl', function ($scope, $location) {
-        $scope.healthy = function(){
+        $scope.login = function(){
             $location.path('/healthy');
         };
   });
