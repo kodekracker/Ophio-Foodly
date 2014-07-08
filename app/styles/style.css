@@ -256,7 +256,18 @@ body{
     cursor: pointer;
 }
 
-
+.flash-msg{
+    width: 260px;
+    height: auto;
+    position: absolute;
+    top: 4%;
+    right: 10%;
+    font-size: 1.4em;
+    background-color: rgba(221, 217, 233, 0.14);
+    color: #fff;
+    padding: 4px 2px 4px 10px;
+    border-radius: 11px;
+}
 
 
 

@@ -12,8 +12,9 @@ app.controller('headCtrl', function ($scope, $location, ItemsStore, Users, Tabs)
     $scope.showIt = false;
     $scope.orderbyvote = 'upvotes';
     $scope.Items = ItemsStore;
-    $scope.user = Users[1];
+    $scope.user = Users[0];
     $scope.currentTab = null;
+    $scope.flashMsg = false;
 
     var title = $location.path().substring(1);
     if(title=="healthy")
@@ -33,7 +34,9 @@ app.controller('headCtrl', function ($scope, $location, ItemsStore, Users, Tabs)
             item.upvotes++;
             $scope.user[cat] = true;
         }
-        
+        else{
+            $scope.flashMsg = true;
+        }
     };
 
     $scope.newItem = function(itemName){
