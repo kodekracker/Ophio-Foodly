@@ -1,3 +1,4 @@
+/*global Firebase*/
 'use strict';
 
 /**

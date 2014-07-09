@@ -10,6 +10,7 @@
         </ul>
     </div>
 </div>
+
 <div class="content-box">
     <div class="items-wrapper">
         <div class="main-item box" ng-repeat="item in Items | orderBy:'-upvotes'" ng-show="item.category==tabCategory">
@@ -32,5 +33,6 @@
         <div class="new-item box" ng-show="addItemButton">
             <div class="plus-img" ng-click="showAddItemBox()"></div>
         </div>
+        <button class="btn btn-success" ng-click="testing()">Test</button>
     </div>
 </div>

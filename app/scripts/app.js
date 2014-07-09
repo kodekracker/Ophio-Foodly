@@ -14,7 +14,8 @@ var app  = angular.module('ophioFoodly', [
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'firebase'
   ]);
 
 app.config(function ($routeProvider) {
@@ -35,6 +36,8 @@ app.config(function ($routeProvider) {
       redirectTo: '/'
     });
 });
+
+app.constant('FBURL', 'https://ophio-foodly.firebaseio.com/');
 
 app.factory("ItemsStore", function(){
   return  [
