@@ -8,9 +8,8 @@
  * # MainCtrl
  * Controller of the ophioFoodly
  */
-angular.module('ophioFoodly')
-  .controller('MainCtrl', function ($scope,$location) {
-    $scope.login = function(){
-        $location.path('/login');
+ app.controller('MainCtrl', function ($scope,$location) {
+    $scope.show = function(url){
+        $location.path(url);
     };
   });

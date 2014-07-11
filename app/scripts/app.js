@@ -15,10 +15,33 @@ var app  = angular.module('ophioFoodly', [
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'firebase'
+    'firebase',
+    'LocalStorageModule'
   ]);
 
-app.config(function ($routeProvider) {
+app.run(function($rootScope,$location,AuthenticationService ){
+  var routesThatDontRequireAuth = ['/login'];
+
+  // check if current location matches route  
+  var routeClean = function (route) {
+    return _.find(routesThatDontRequireAuth,
+      function (noAuthRoute) {
+        return _.str.startsWith(route, noAuthRoute);
+      });
+  };
+
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    // if route requires auth and user is not logged in
+    // !routeClean($location.url())
+    if (!AuthenticationService.isLoggedIn()) {
+      // redirect back to login
+      $location.path('/login');
+    }
+  });
+
+});
+app.config(function ($routeProvider,localStorageServiceProvider) {
+  localStorageServiceProvider.setPrefix('OphioFoodly');
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
@@ -28,7 +51,7 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl'
     })
-    .when('/:category', {
+    .when('/cat/:category', {
       templateUrl: 'views/content.html',
       controller: 'ContentCtrl'
     })
@@ -37,79 +60,41 @@ app.config(function ($routeProvider) {
     });
 });
 
-app.constant('FBURL', 'https://ophio-foodly.firebaseio.com/');
+app.constant('OPHIO_CONST', {
+  'FBURL': 'https://ophio-foodly.firebaseio.com/',
+  'AUTH_TOKEN' : 'authToken',
+  'AUTH_ID' : 'authId'
+  }
+);
 
-app.factory("ItemsStore", function(){
-  return  [
-      {
-          id: 0,
-          name: "Pizza",
-          upvotes : 8,
-          category : "healthy"
-      },
-      {
-          id: 1,
-          name: "Chips",
-          upvotes : 10,
-          category : "snacks"
-      },
-      {
-          id: 2,
-          name: "Bear",
-          upvotes : 3,
-          category : "drinks"
-      },
-      {
-          id: 3,
-          name: "Pdgadgadg",
-          upvotes : 8,
-          category : "healthy"
-      },
-      {
-          id: 4,
-          name: "Chipsaag",
-          upvotes : 10,
-          category : "snacks"
-      },
-      {
-          id: 5,
-          name: "Bear12",
-          upvotes : 8,
-          category : "snacks"
-      },
-      {
-          id: 6,
-          name: "Pizza12",
-          upvotes : 5,
-          category : "healthy"
-      },
-      {
-          id: 7,
-          name: "Chips123",
-          upvotes : 2,
-          category : "snacks"
-      },
-      {
-          id: 8,
-          name: "Bear123",
-          upvotes : 12,
-          category : "drinks"
-      }
-  ];
+
+app.service("userlogged", function () {
+   var id = null;
+   var name = null;
+   var providerName = null;    
+
+});
+app.service('AuthenticationService',function(OphioLocalStorage,OPHIO_CONST){
+  this.isLoggedIn = function(){
+    var token =  OphioLocalStorage.getValue(OPHIO_CONST.AUTH_TOKEN);
+    if(token===null)
+      return false;
+    else
+      return true;
+  };
 });
 
-app.factory("Users",function(){
-  return [
-      {
-        id : 0,
-        name : "Tester 1",
-        votes : []
-      },
-      {
-        id : 1,
-        name : "Tester 2",
-        votes : []
-      }
-  ];
+app.service('OphioLocalStorage', function(localStorageService){
+  this.getValue = function(key){
+   return localStorageService.get(key);
+  };
+  this.setValue = function(key,value){
+    localStorageService.set(key,value);
+  };
+  this.removeValue = function(key){
+    localStorageService.remove(key);
+  };
+  this.removeAll = function(){
+    localStorageService.clearAll();
+  };
 });
-
