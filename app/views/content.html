@@ -4,21 +4,22 @@
     </div>
     <div class="tabs">
         <ul>
-            <a href="#/healthy"><li ng-class="{healthy:'selected'}[tabCategory]"><p>Healthy Bytes</p></li></a>
-            <a href="#/snacks"><li ng-class="{snacks:'selected'}[tabCategory]"><p>Snack Bytes</p></li></a>
-            <a href="#/drinks"><li ng-class="{drinks:'selected'}[tabCategory]"><p>Drinks</p></li></a>
+            <a href="#/cat/healthy"><li ng-class="{healthy:'selected'}[tabCategory]"><p>Healthy Bytes</p></li></a>
+            <a href="#/cat/snacks"><li ng-class="{snacks:'selected'}[tabCategory]"><p>Snack Bytes</p></li></a>
+            <a href="#/cat/drinks"><li ng-class="{drinks:'selected'}[tabCategory]"><p>Drinks</p></li></a>
         </ul>
     </div>
 </div>
+
 <div class="content-box">
     <div class="items-wrapper">
-        <div class="main-item box" ng-repeat="item in Items | orderBy:'-upvotes'" ng-show="item.category==tabCategory">
+        <div class="main-item box" ng-repeat="item in Items" ng-show="item.category==tabCategory">
             <div class="item-place">
                 <div class="lf-box"></div>
                 <div class="item-desc">{{item.name}}</div>
             </div>
-            <div class="item-vote sqr-box">{{item.upvotes}}</div>
-            <div class="vote-up sqr-box" ng-class="{true:'active', false:'inactive' }[userCanVote(item)]" ng-click="upVoteItem(item)"><img src="../images/UpVoteButton.svg"></div>
+            <div class="item-vote sqr-box"></div>
+            <div class="vote-up sqr-box" ng-class="active" ng-click="upVoteItem(item)"><img src="../images/UpVoteButton.svg"></div>
         </div>
         <div class="add-item box" ng-show="addItemBox">
             <div class="item-place">
