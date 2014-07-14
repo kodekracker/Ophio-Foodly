@@ -22,7 +22,6 @@ var app  = angular.module('ophioFoodly', [
 app.run(function($rootScope,$location,AuthenticationService ){
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     // if route requires auth and user is not logged in
-    // !routeClean($location.url())
     if (next.authenticationRequired && !AuthenticationService.isLoggedIn()) {
       // redirect back to login
       $location.path('/login');
@@ -30,6 +29,7 @@ app.run(function($rootScope,$location,AuthenticationService ){
   });
 
 });
+
 app.config(function ($routeProvider,localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('OphioFoodly');
   $routeProvider
@@ -53,7 +53,7 @@ app.config(function ($routeProvider,localStorageServiceProvider) {
 });
 
 app.constant('OPHIO_CONST', {
-  'FBURL': 'https://ophio-foodly.firebaseio.com/',
+  'FBURL': 'https://ophiofoodly.firebaseio.com/',
   'AUTH_TOKEN' : 'authToken',
   'AUTH_ID' : 'authId'
   }
@@ -62,17 +62,22 @@ app.constant('OPHIO_CONST', {
 
 app.service("userlogged", function () {
    var id = null;
-   var name = null;
-   var providerName = null;    
-
 });
-app.service('AuthenticationService',function(OphioLocalStorage,OPHIO_CONST){
+
+app.service('AuthenticationService',function(OphioLocalStorage,OPHIO_CONST,$http){
   this.isLoggedIn = function(){
     var token =  OphioLocalStorage.getValue(OPHIO_CONST.AUTH_TOKEN);
     if(token===null)
       return false;
-    else
-      return true;
+    else{
+        var url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+token;
+        $http.get(url).success(function(data, status){
+          if(status=='401')
+            return false;
+          else
+            return true;
+        });
+    }
   };
 });
 
