@@ -53,7 +53,7 @@ app.config(function ($routeProvider,localStorageServiceProvider) {
 });
 
 app.constant('OPHIO_CONST', {
-  'FBURL': 'https://ophio-foodly.firebaseio.com/',
+  'FBURL': 'https://ophiofoodly.firebaseio.com/',
   'AUTH_TOKEN' : 'authToken',
   'AUTH_ID' : 'authId'
   }
@@ -63,7 +63,7 @@ app.constant('OPHIO_CONST', {
 app.service("userlogged", function () {
    var id = null;
    var name = null;
-   var providerName = null;    
+   var providerName = null;
 
 });
 app.service('AuthenticationService',function(OphioLocalStorage,OPHIO_CONST){
