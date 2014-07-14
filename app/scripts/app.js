@@ -20,20 +20,10 @@ var app  = angular.module('ophioFoodly', [
   ]);
 
 app.run(function($rootScope,$location,AuthenticationService ){
-  var routesThatDontRequireAuth = ['/login'];
-
-  // check if current location matches route  
-  var routeClean = function (route) {
-    return _.find(routesThatDontRequireAuth,
-      function (noAuthRoute) {
-        return _.str.startsWith(route, noAuthRoute);
-      });
-  };
-
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     // if route requires auth and user is not logged in
     // !routeClean($location.url())
-    if (!AuthenticationService.isLoggedIn()) {
+    if (next.authenticationRequired && !AuthenticationService.isLoggedIn()) {
       // redirect back to login
       $location.path('/login');
     }
@@ -45,7 +35,8 @@ app.config(function ($routeProvider,localStorageServiceProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl'
+      controller: 'MainCtrl',
+      authenticationRequired: true
     })
     .when('/login', {
       templateUrl: 'views/login.html',
@@ -53,7 +44,8 @@ app.config(function ($routeProvider,localStorageServiceProvider) {
     })
     .when('/cat/:category', {
       templateUrl: 'views/content.html',
-      controller: 'ContentCtrl'
+      controller: 'ContentCtrl',
+      authenticationRequired: true
     })
     .otherwise({
       redirectTo: '/'

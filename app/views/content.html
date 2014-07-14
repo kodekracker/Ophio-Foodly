@@ -4,34 +4,35 @@
     </div>
     <div class="tabs">
         <ul>
-            <a href="#/cat/healthy"><li ng-class="{healthy:'selected'}[tabCategory]"><p>Healthy Bytes</p></li></a>
-            <a href="#/cat/snacks"><li ng-class="{snacks:'selected'}[tabCategory]"><p>Snack Bytes</p></li></a>
-            <a href="#/cat/drinks"><li ng-class="{drinks:'selected'}[tabCategory]"><p>Drinks</p></li></a>
+            <a href="#/cat/{{category.href}}" ng-repeat="category in categories"><li ng-class="{selected: tabCategory == category.href}"><p>{{category.title}}</p></li></a>
         </ul>
     </div>
 </div>
 
 <div class="content-box">
     <div class="items-wrapper">
-        <div class="main-item box" ng-repeat="item in Items" ng-show="item.category==tabCategory">
+        <div class="main-item box" ng-repeat="(item_id, item) in Items | orderBy:'name'" ng-show="item.category==tabCategory">
             <div class="item-place">
                 <div class="lf-box"></div>
                 <div class="item-desc">{{item.name}}</div>
             </div>
-            <div class="item-vote sqr-box"></div>
-            <div class="vote-up sqr-box" ng-class="active" ng-click="upVoteItem(item)"><img src="../images/UpVoteButton.svg"></div>
+            <div class="item-vote sqr-box" ng-if="todayVotes[item_id]">
+                <span>{{getVoteCount(todayVotes[item_id])}}</span>
+            </div>
+            <div class="item-vote sqr-box" ng-if="!todayVotes[item_id]">0</div>
+            <div class="vote-up sqr-box" ng-click="upVoteItem(item_id)" ng-if="!todayVotes[item_id] || todayVotes[item_id].indexOf(userId) < 0"><img src="../images/UpVoteButton.svg"></div>
         </div>
-        <div class="add-item box" ng-show="addItemBox">
+        <div class="add-item box" ng-show="temp.addingItem">
             <div class="item-place">
                 <div class="lf-box"></div>
                 <div class="element-area">
-                    <input type="text" ng-model="itemName" placeholder="Add Item" required>
+                    <input type="text" ng-model="temp.itemName" placeholder="Add Item" required>
                 </div>
             </div>
-            <div class="add-this sqr-box" ng-click="addNewItem(itemName)"></div>
+            <div class="add-this sqr-box" ng-click="addNewItem();" ng-if="temp.itemName.length > 0"></div>
         </div>
-        <div class="new-item box" ng-show="addItemButton">
-            <div class="plus-img" ng-click="showAddItemBox()"></div>
+        <div class="new-item box" ng-if="!temp.addingItem">
+            <div class="plus-img" ng-click="temp.addingItem = true"></div>
         </div>
     </div>
 </div>
