@@ -19,11 +19,12 @@ app.controller('LoginCtrl',
           $scope.auth.$login('google', {
         			  rememberMe: true,
         		}).then(function(user){
+                console.log(user);
                   if(checkMembership(user.email, "@ophio.co.in")){
                     userlogged.id = user.id;
                     OphioLocalStorage.setValue(OPHIO_CONST.AUTH_TOKEN,user.accessToken);
                     OphioLocalStorage.setValue(OPHIO_CONST.AUTH_ID,user.id);
-                    //$location.path('/main');
+                    $location.path('/main');
                   }else{
                     $scope.auth.$logout();
                     alert('You are not a valid member.');
