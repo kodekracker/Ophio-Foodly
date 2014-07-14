@@ -1,5 +1,3 @@
-/*global Firebase*/
-
 'use strict';
 
 /**
@@ -9,41 +7,13 @@
  * # LoginCtrl
  * Controller of the ophioFoodly
  */
+
+var app  = angular.module('ophioFoodly');
+
 app.controller('LoginCtrl',
-   function ($scope, $location , $firebaseSimpleLogin, $firebase ,OPHIO_CONST, userlogged, OphioLocalStorage) {
-
-        var Logref = new Firebase(OPHIO_CONST.FBURL);
-        $scope.auth = $firebaseSimpleLogin(Logref);
-        $scope.userInfo = userlogged;
-        $scope.login = function(){
-          $scope.auth.$login('google', {
-        			  rememberMe: true,
-        		}).then(function(user){
-                  if(checkMembership(user.email, "@ophio.co.in")){
-                    userlogged.id = user.id;
-                    userlogged.name = user.displayName;
-                    userlogged.providerName = user.provider;
-                    console.log(user);
-                    OphioLocalStorage.setValue(OPHIO_CONST.AUTH_TOKEN,user.accessToken);
-                    OphioLocalStorage.setValue(OPHIO_CONST.AUTH_ID,user.id);
-                    $location.path('/main');
-                  }else{
-                    $scope.auth.$logout();
-                    alert('You are not valid membership.');
-                  }
-
-
-          		}), function(error){
-          			alert(error);
-          		};
-        };
-
-        $scope.logout = function(){
-          auth.logout();
-        	$location.path('/login');
-        };
-
-        function checkMembership(email, suffix){
-          return email.indexOf(suffix, email.length - suffix.length) !== -1;
-        }
-  });
+   function ($scope, settings, AuthenticationService) {
+    $scope.login = function(){
+      return AuthenticationService.tryLogin();
+    };
+  }
+);
