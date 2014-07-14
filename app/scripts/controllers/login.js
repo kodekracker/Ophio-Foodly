@@ -24,7 +24,8 @@ app.controller('LoginCtrl',
                     userlogged.id = user.id;
                     userlogged.name = user.displayName;
                     userlogged.providerName = user.provider;
-                    OphioLocalStorage.setValue(OPHIO_CONST.AUTH_TOKEN,user.firebaseAuthToken);     
+                    console.log(user);
+                    OphioLocalStorage.setValue(OPHIO_CONST.AUTH_TOKEN,user.accessToken);     
                     OphioLocalStorage.setValue(OPHIO_CONST.AUTH_ID,user.id);
                     $location.path('/main');  
                   }else{
