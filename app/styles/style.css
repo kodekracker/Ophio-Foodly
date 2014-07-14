@@ -3,7 +3,6 @@ body{
     height: 100%;
     margin:0;
     padding: 0;
-    background:  url("") no-repeat;
     background: #ffffff url('../images/background.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -237,6 +236,7 @@ body{
 }
 
 .vote-up{
+    background: url("../images/UpVoteButton.svg") no-repeat center fixed;
     background-size: contain;
     cursor: pointer;
 }
@@ -248,11 +248,11 @@ body{
 .inactive{
     opacity: 0.5;
 }
-
+/*
 .vote-up img{
     width: 100%;
 }
-
+*/
 .add-item input{
     padding: 0 5px 0 6px;
     height: 40px;
