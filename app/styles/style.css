@@ -3,8 +3,12 @@ body{
     height: 100%;
     margin:0;
     padding: 0;
-    background: #ffffff url("../images/background.jpg") no-repeat;
-    background-attachment: fixed;
+    background:  url("") no-repeat;
+    background: #ffffff url('../images/background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     font-size: 20px;
 }
 
@@ -33,6 +37,7 @@ body{
 .large-logo{
     width: 50%;
     margin: 0px auto;
+    text-align: center;
 }
 
 .small-logo{
