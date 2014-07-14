@@ -23,7 +23,7 @@ app.controller('LoginCtrl',
                     userlogged.id = user.id;
                     OphioLocalStorage.setValue(OPHIO_CONST.AUTH_TOKEN,user.accessToken);
                     OphioLocalStorage.setValue(OPHIO_CONST.AUTH_ID,user.id);
-                    $location.path('/main');
+                    //$location.path('/main');
                   }else{
                     $scope.auth.$logout();
                     alert('You are not a valid member.');

@@ -70,13 +70,16 @@ app.service('AuthenticationService',function(OphioLocalStorage,OPHIO_CONST,$http
     if(token===null)
       return false;
     else{
+      var isLoggedIn = false;
         var url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+token;
         $http.get(url).success(function(data, status){
-          if(status=='401')
-            return false;
-          else
-            return true;
+          if(status=='200')
+            isLoggedIn = true;
+        }).error(function(data,status){
+            OphioLocalStorage.removeAll();
         });
+
+      return isLoggedIn;
     }
   };
 });
