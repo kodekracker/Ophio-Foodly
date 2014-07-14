@@ -18,18 +18,18 @@ var app  = angular.module('ophioFoodly', [
     'firebase',
     'LocalStorageModule'
   ]);
-
+/*
 app.run(function($rootScope,$location,AuthenticationService ){
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     // if route requires auth and user is not logged in
     if (next.authenticationRequired && !AuthenticationService.isLoggedIn()) {
       // redirect back to login
-      $location.path('/login');
+     $location.path('/login');
     }
   });
 
 });
-
+*/
 app.config(function ($routeProvider,localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('OphioFoodly');
   $routeProvider
