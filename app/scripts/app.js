@@ -64,7 +64,7 @@ app.service('AuthenticationService',function(settings, $localStorage, $firebaseS
   this.getAuthToken = function(){
     if(typeof $localStorage.user !== 'undefined'){
       var token =  $localStorage.user.firebaseAuthToken;
-      if(typeof token !== 'undefined' && token.length === settings.AUTH_TOKEN_LENGTH){
+      if(typeof token !== 'undefined'){
         return token;
       }
     }
