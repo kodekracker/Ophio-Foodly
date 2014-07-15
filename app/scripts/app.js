@@ -16,8 +16,9 @@ var app  = angular.module('ophioFoodly', [
     'ngSanitize',
     'ngTouch',
     'firebase',
-    'LocalStorageModule'
+    'ngStorage'
   ]);
+<<<<<<< HEAD
 /*
 app.run(function($rootScope,$location,AuthenticationService ){
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
@@ -32,72 +33,95 @@ app.run(function($rootScope,$location,AuthenticationService ){
 */
 app.config(function ($routeProvider,localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('OphioFoodly');
+=======
+
+
+app.config(function ($routeProvider) {
+>>>>>>> v2
   $routeProvider
-    .when('/', {
-      templateUrl: 'views/main.html',
-      controller: 'MainCtrl',
+    .when('/home', {
+      templateUrl: 'views/home.html',
+      controller: 'HomeCtrl',
       authenticationRequired: true
     })
     .when('/login', {
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl'
     })
-    .when('/cat/:category', {
-      templateUrl: 'views/content.html',
-      controller: 'ContentCtrl',
+    .when('/category/:category', {
+      templateUrl: 'views/category.html',
+      controller: 'CategoryCtrl',
       authenticationRequired: true
     })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/home'
     });
 });
 
-app.constant('OPHIO_CONST', {
-  'FBURL': 'https://ophiofoodly.firebaseio.com/',
-  'AUTH_TOKEN' : 'authToken',
-  'AUTH_ID' : 'authId'
-  }
-);
-
-
-app.service("userlogged", function () {
-   var id = null;
+app.service('settings', function (){
+  this.FIREBASE_URL = 'https://ophiofoodly.firebaseio.com/';
+  this.AUTH_TOKEN_LENGTH = 299;
+  this.LOGIN_PROVIDER = 'google';
+  this.CHECK_EMAIL_SUFFIX = true;
+  this.REQUIRED_EMAIL_SUFFIX = '@ophio.co.in';
+  this.isEmailAllowed = function(email){
+    var suffix = this.REQUIRED_EMAIL_SUFFIX;
+    return email.match(suffix+'$')[0] === suffix;
+  };
 });
 
-app.service('AuthenticationService',function(OphioLocalStorage,OPHIO_CONST,$http){
+app.service('AuthenticationService',function(settings, $localStorage, $firebaseSimpleLogin, $location){
   this.isLoggedIn = function(){
-    var token =  OphioLocalStorage.getValue(OPHIO_CONST.AUTH_TOKEN);
-    if(token===null)
-      return false;
+    var token =  this.getAuthToken();
+    return Boolean(token);
+  };
+
+  this.getAuthToken = function(){
+    if(typeof $localStorage.user !== 'undefined'){
+      var token =  $localStorage.user.firebaseAuthToken;
+      if(typeof token !== 'undefined' && token.length === settings.AUTH_TOKEN_LENGTH){
+        return token;
+      }
+    }
+    return null;
+  };
+
+  this.getCurrentUser = function(){
+    if(this.isLoggedIn){
+      return $localStorage.user;
+    }
     else{
-      /*var loggedIn = false;
-      var url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+token;
-      $http.get(url).success(function(data, status){
-        if(status==200){
-          loggedIn = true;
-          return loggedIn;
-        }
-      }).error(function(data,status){
-          OphioLocalStorage.removeAll();
-          alert('error in auth');
-          return loggedIn;
-      });*/
-      return true;
+      alert('Your session has expired, Please login again.');
+      $location.path('/login');
     }
   };
+
+  this.tryLogin = function(){
+    var loginRef = $firebaseSimpleLogin(new Firebase(settings.FIREBASE_URL));
+    loginRef.$login(settings.LOGIN_PROVIDER, {
+      rememberMe: true,
+    }).then(function(user){
+      console.log(user);
+      if(settings.isEmailAllowed(user.email)){
+        $localStorage.user = user;
+        $location.path('/home');
+      }
+      else{
+        alert('Logging in with this email is not allowed');
+        $location.path('/login');
+      }
+    }, function(error){
+      alert(error);
+    });
+  };
 });
 
-app.service('OphioLocalStorage', function(localStorageService){
-  this.getValue = function(key){
-   return localStorageService.get(key);
-  };
-  this.setValue = function(key,value){
-    localStorageService.set(key,value);
-  };
-  this.removeValue = function(key){
-    localStorageService.remove(key);
-  };
-  this.removeAll = function(){
-    localStorageService.clearAll();
-  };
+app.run(function($rootScope,$location,AuthenticationService ){
+  $rootScope.$on('$routeChangeStart', function (event, toRoute, fromRoute) {
+    // if target route requires auth and user is not logged in
+    if(toRoute.authenticationRequired && !AuthenticationService.isLoggedIn()) {
+      $location.path('/login');
+    }
+  });
+
 });

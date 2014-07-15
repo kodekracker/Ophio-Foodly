@@ -9,6 +9,7 @@ body{
     -o-background-size: cover;
     background-size: cover;
     font-size: 20px;
+    font-family: 'Raleway', sans-serif;
 }
 
 .wrapper{
