@@ -1,10 +1,10 @@
 <nav class="navbar navbar-color navbar-fixed-top">
     <div class="">
         <div class="row">
-            <div class="col-sm-offset-1 col-sm-2 col-xs-10 col-xs-offset-1 text-center">
+            <div class="col-xs-10 col-xs-4 col-md-6 text-center">
                 <h2><strong>Ophio Foodly</strong></h2>
             </div>
-            <div class="col-sm-9 col-xs-12 tabs">
+            <div class="hidden-xs col-sm-8 col-md-6 tabs">
                 <ul class="nav">
                     <a href="#/category/{{category.href}}" ng-repeat="category in categories"><li ng-class="{selected: temp.currentCategory == category.href}"><p>{{category.title}}</p></li></a>
                 </ul>
@@ -12,32 +12,32 @@
         </div>
     </div>
 </nav>
-
-<div class="content-box">
-    <div class="items-wrapper">
-        <div class="main-item box" ng-repeat="(item_id, item) in availableItems | orderBy:'name'" ng-if="item.category == temp.currentCategory">
-            <div class="item-place">
-                <div class="lf-box"></div>
-                <div class="item-desc">{{item.name}}</div>
-            </div>
-            <div class="item-vote sqr-box" ng-if="todaysVotes[item_id]">
-                <span>{{getVoteCount(todaysVotes[item_id])}}</span>
-            </div>
-            <div class="item-vote sqr-box" ng-if="!todaysVotes[item_id]">0</div>
-            <div class="vote-up sqr-box" ng-click="upVoteItem(item_id)" ng-if="!todaysVotes[item_id] || todaysVotes[item_id].indexOf(userId) < 0"><img src="../images/UpVoteButton.svg"></div>
-        </div>
-        <div class="add-item box" ng-show="temp.addingItem">
-            <div class="item-place">
-                <div class="lf-box"></div>
-                <div class="element-area">
-                    <input type="text" ng-model="temp.itemName" placeholder="Add Item" required>
+<div class="container">
+    <div class="content-box">
+        <div class="items-wrapper">
+            <div class="main-item box" ng-repeat="(item_id, item) in availableItems | orderBy:'name'" ng-if="item.category == temp.currentCategory">
+                <div class="item-place">
+                    <div class="lf-box"></div>
+                    <div class="item-desc">{{item.name}}</div>
                 </div>
+                <div class="item-vote sqr-box" ng-if="todaysVotes[item_id]">
+                    <span>{{getVoteCount(todaysVotes[item_id])}}</span>
+                </div>
+                <div class="item-vote sqr-box" ng-if="!todaysVotes[item_id]">0</div>
+                <div class="vote-up sqr-box" ng-click="upVoteItem(item_id)" ng-if="!todaysVotes[item_id] || todaysVotes[item_id].indexOf(userId) < 0"><img src="../images/UpVoteButton.svg"></div>
             </div>
-            <div class="add-this sqr-box" ng-click="addNewItem();" ng-if="temp.itemName.length > 0"></div>
-        </div>
-        <div class="new-item box" ng-if="!temp.addingItem">
-            <div class="plus-img" ng-click="temp.addingItem = true"></div>
+            <div class="add-item box" ng-show="temp.addingItem">
+                <div class="item-place">
+                    <div class="lf-box"></div>
+                    <div class="element-area">
+                        <input type="text" ng-model="temp.itemName" placeholder="Add Item" required>
+                    </div>
+                </div>
+                <div class="add-this sqr-box" ng-click="addNewItem();" ng-if="temp.itemName.length > 0"></div>
+            </div>
+            <div class="new-item box" ng-if="!temp.addingItem">
+                <div class="plus-img" ng-click="temp.addingItem = true"></div>
+            </div>
         </div>
     </div>
 </div>
-
