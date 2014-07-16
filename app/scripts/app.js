@@ -24,7 +24,7 @@ app.config(function ($routeProvider) {
     .when('/home', {
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl',
-      authenticationRequired: true
+      authenticationRequired: false
     })
     .when('/login', {
       templateUrl: 'views/login.html',
@@ -33,7 +33,7 @@ app.config(function ($routeProvider) {
     .when('/category/:category', {
       templateUrl: 'views/category.html',
       controller: 'CategoryCtrl',
-      authenticationRequired: true
+      authenticationRequired: false
     })
     .otherwise({
       redirectTo: '/home'

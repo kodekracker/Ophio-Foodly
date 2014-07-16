@@ -1,13 +1,17 @@
-<div class="header small-header">
-    <div class="logo small-logo">
-        <div class="responsive"><img src="images/OPHIO_FOODLY_small.svg"></div>
+<nav class="navbar navbar-color navbar-fixed-top">
+    <div class="">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-2 col-xs-10 col-xs-offset-1 text-center">
+                <h2><strong>Ophio Foodly</strong></h2>
+            </div>
+            <div class="col-sm-9 col-xs-12 tabs">
+                <ul class="nav">
+                    <a href="#/category/{{category.href}}" ng-repeat="category in categories"><li ng-class="{selected: temp.currentCategory == category.href}"><p>{{category.title}}</p></li></a>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="tabs">
-        <ul>
-            <a href="#/category/{{category.href}}" ng-repeat="category in categories"><li ng-class="{selected: temp.currentCategory == category.href}"><p>{{category.title}}</p></li></a>
-        </ul>
-    </div>
-</div>
+</nav>
 
 <div class="content-box">
     <div class="items-wrapper">
@@ -36,3 +40,4 @@
         </div>
     </div>
 </div>
+
