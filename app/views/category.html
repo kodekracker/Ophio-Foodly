@@ -4,23 +4,23 @@
     </div>
     <div class="tabs">
         <ul>
-            <a href="#/cat/{{category.href}}" ng-repeat="category in categories"><li ng-class="{selected: tabCategory == category.href}"><p>{{category.title}}</p></li></a>
+            <a href="#/category/{{category.href}}" ng-repeat="category in categories"><li ng-class="{selected: temp.currentCategory == category.href}"><p>{{category.title}}</p></li></a>
         </ul>
     </div>
 </div>
 
 <div class="content-box">
     <div class="items-wrapper">
-        <div class="main-item box" ng-repeat="(item_id, item) in Items | orderBy:'name'" ng-show="item.category==tabCategory">
+        <div class="main-item box" ng-repeat="(item_id, item) in availableItems | orderBy:'name'" ng-if="item.category == temp.currentCategory">
             <div class="item-place">
                 <div class="lf-box"></div>
                 <div class="item-desc">{{item.name}}</div>
             </div>
-            <div class="item-vote sqr-box" ng-if="todayVotes[item_id]">
-                <span>{{getVoteCount(todayVotes[item_id])}}</span>
+            <div class="item-vote sqr-box" ng-if="todaysVotes[item_id]">
+                <span>{{getVoteCount(todaysVotes[item_id])}}</span>
             </div>
-            <div class="item-vote sqr-box" ng-if="!todayVotes[item_id]">0</div>
-            <div class="vote-up sqr-box" ng-click="upVoteItem(item_id)" ng-if="!todayVotes[item_id] || todayVotes[item_id].indexOf(userId) < 0"></div>
+            <div class="item-vote sqr-box" ng-if="!todaysVotes[item_id]">0</div>
+            <div class="vote-up sqr-box" ng-click="upVoteItem(item_id)" ng-if="!todaysVotes[item_id] || todaysVotes[item_id].indexOf(userId) < 0"><img src="../images/UpVoteButton.svg"></div>
         </div>
         <div class="add-item box" ng-show="temp.addingItem">
             <div class="item-place">
