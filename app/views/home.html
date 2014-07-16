@@ -1,20 +1,33 @@
-
-<div class="header large">
-    <div class="logo large-logo responsive"><img src="images/OPHIO_FOODLY_BIG.svg" /></div>
-</div>
+<nav class="navbar navbar-color navbar-fixed-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h1><strong>Ophio Foodly</strong></h1>
+            </div>
+        </div>      
+    </div>
+</nav>
+<div class="container">
 <div class="content">
-    <div class="menu-wrapper">
-        <p>Control the food you eat !</p>
-        <ul>
-            <li>
-                <div class="menu" ng-click="show('/category/healthy')"><p>Healthy Bytes</p></div>
-            </li>
-            <li>
-                <div class="menu" ng-click="show('/category/snacks')"><p>Snack Bytes</p></div>
-            </li>
-            <li>
-                <div class="menu" ng-click="show('/category/drinks')"><p>Drinks</p></div>
-            </li>
-        </ul>
+        <div class="menu-wrapper">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 text-center">
+                    <p>Control the food you eat !</p>
+                </div>
+            </div>
+            <div class="row">
+                <ul>
+                    <li>
+                        <div class="menu" ng-click="show('/category/healthy')"><p>Healthy Bytes</p></div>
+                    </li>
+                    <li>
+                        <div class="menu" ng-click="show('/category/snacks')"><p>Snack Bytes</p></div>
+                    </li>
+                    <li>
+                        <div class="menu" ng-click="show('/category/drinks')"><p>Drinks</p></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

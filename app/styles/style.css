@@ -1,8 +1,5 @@
 body{
-    width: 100%;
-    height: 100%;
-    margin:0;
-    padding: 0;
+    padding-top: 110px;
     background: #ffffff url('../images/background.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -10,48 +7,28 @@ body{
     background-size: cover;
     font-size: 20px;
     font-family: 'Raleway', sans-serif;
+    color: #ffffff;
 }
 
-.wrapper{
-    width: 100%;
-    height: 100%;
+h1{
+    font-size: 2.5em;
 }
 
-.header{
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: rgba(0, 131, 250, 0.35);
+.navbar-color{
+    background-color: rgba(0, 131, 250, 0.5);
     border-bottom: #ffffff 10px solid;
-    z-index: 10;
 }
 
-.small-header{
-    height: 100px;
-}
-.logo{
-
-    padding: 20px;
+.img-pad{
+    padding: 15px;
 }
 
-.large-logo{
-    width: 50%;
-    margin: 0px auto;
-    text-align: center;
-}
-
-.small-logo{
-    width: 40%;
-    height: 100%;
-    margin: 0px;
-    float: left;
+.content{
+    margin: 15% 0;
 }
 
 .tabs{
-    color:white;
     float: right;
-    width: 60%;
-    height: 100%;
     margin-right: -45px;
 }
 
@@ -63,9 +40,10 @@ body{
     padding:0;
     margin: 0;
 }
+
 .tabs li{
     font-size: 1.2em;
-    color: #ffffff;
+    color: #ffffff !important;
     float: left;
     width: 30%;
     height: 100%;
@@ -96,17 +74,6 @@ body{
 
 .tabs .selected{
     background-color: rgb(89, 192, 161);
-}
-.responsive img{
-    max-width: 100%;
-    height: auto;
-}
-
-.content{
-    color: white;
-    margin: 20% auto 0px;
-    width: 100%;
-    height: auto;
 }
 
 .menu-wrapper{
@@ -237,8 +204,7 @@ body{
 }
 
 .vote-up{
-    background: url("../images/UpVoteButton.svg") no-repeat center;
-    background-size: cover;
+    background-size: contain;
     cursor: pointer;
 }
 
@@ -249,11 +215,11 @@ body{
 .inactive{
     opacity: 0.5;
 }
-/*
+
 .vote-up img{
     width: 100%;
 }
-*/
+
 .add-item input{
     padding: 0 5px 0 6px;
     height: 40px;
