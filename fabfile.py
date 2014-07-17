@@ -17,4 +17,5 @@ def serve():
 
 def deploy():
     build()
+    local('git push')
     local('ghp-import -p -m "site upated" dist/')
