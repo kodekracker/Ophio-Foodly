@@ -9,6 +9,22 @@ body{
     font-family: 'Raleway', sans-serif;
 }
 
+
+/* Common */
+/*--------------------------------------------------------------------------*/
+
+.button {
+    -webkit-transition: all 0.2s ease; /* For Safari 3.1 to 6.0 */
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+}
+
+.button:hover,
+.button:active {
+    opacity: 0.8;
+}
+
 h1{
     font-size: 2.5em;
 }
@@ -193,7 +209,7 @@ body{
     background-size: contain;
     cursor: pointer;
     background-image: url("../images/UpVoteButton.svg") ;
-    
+
 }
 
 .active{
@@ -265,7 +281,7 @@ body{
     .vote-up{
     background-size: contain;
     cursor: pointer;
-    background-image: url("../images/UpVoteButton.svg") ;   
+    background-image: url("../images/UpVoteButton.svg") ;
     }
     .add-this{
     background-image: url("../images/Add_Item.svg") ;

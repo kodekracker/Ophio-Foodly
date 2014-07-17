@@ -12,7 +12,7 @@ def build():
 
 
 def serve():
-    local('grunt build')
+    local('grunt serve')
 
 
 def deploy():
