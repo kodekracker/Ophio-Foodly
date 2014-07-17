@@ -1,5 +1,5 @@
 body{
-    padding-top: 110px;
+    padding-top: 120px;
     background: #ffffff url('../images/background.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -7,7 +7,6 @@ body{
     background-size: cover;
     font-size: 20px;
     font-family: 'Raleway', sans-serif;
-    color: #ffffff;
 }
 
 h1{
@@ -17,6 +16,7 @@ h1{
 .navbar-color{
     background-color: rgba(0, 131, 250, 0.5);
     border-bottom: #ffffff 10px solid;
+    color: #ffffff;
 }
 
 .img-pad{
@@ -145,52 +145,38 @@ body{
 
 /* ----------Item Display css-----------  */
 
-
-.content-box{
-    position: relative;
-    width: 100%;
-    height: auto;
-}
-
-.items-wrapper{
-    width: 40%;
-    min-height: 350px;
-    margin: 140px auto;
-}
-.items-wrapper > div{
-    margin: 5px 0px;
-    width: 100%;
-}
 .box{
-    width: 550px;
     display: inline-block;
 
 }
+.item-box{
+    padding: 10px 0px;
+}
 
 .item-place{
-    float: left;
-    width: 80%;
     background-color: #fff;
-    display: inline;
 }
 .lf-box{
-    float: left;
-    width: 50px;
     height: 50px;
+    width: 50px;
     border : 5px solid #fff;
     background-color: rgb(53, 139, 187);
 }
 .item-desc{
-    height: 40px;
-    width: auto;
+    height: 50px;
     font-size: 1.2em;
-    margin: 7px 5px 0 60px;
-    padding: 5px;
+    margin: 0;
+    padding: 10px 0px;
 }
 
+.item-desc input{
+    border: none;
+    outline: none;
+    width: 100%;
+}
 .sqr-box{
     float: left;
-    width: 10%;
+    width: 50px;
     height: 50px;
     background: rgba(101, 101, 107, 0.5) ;
 
@@ -206,6 +192,8 @@ body{
 .vote-up{
     background-size: contain;
     cursor: pointer;
+    background-image: url("../images/UpVoteButton.svg") ;
+    
 }
 
 .active{
@@ -216,19 +204,7 @@ body{
     opacity: 0.5;
 }
 
-.vote-up img{
-    width: 100%;
-}
 
-.add-item input{
-    padding: 0 5px 0 6px;
-    height: 40px;
-    width: 340px;
-    margin: 5px;
-    font-size: 1.2em;
-    border : none;
-    outline: none;
-}
 
 .add-this{
     background-image: url("../images/Add_Item.svg") ;
@@ -258,6 +234,46 @@ body{
     border-radius: 11px;
 }
 
+
+@media (max-width: 768px){
+    .item-box{
+        padding: 6px 0px;
+    }
+    .item-desc{
+        font-size: 1em;
+        height: 40px;
+        padding: 6px 0px;
+    }
+    .lf-box{
+    height: 40px;
+    width: 40px;
+    border : 5px solid #fff;
+    background-color: rgb(53, 139, 187);
+    }
+    .sqr-box{
+    width: 40px;
+    height: 40px;
+    background: rgba(101, 101, 107, 0.5) ;
+    }
+    .item-vote{
+    font-size: 1em;
+    color: #fff;
+    text-align: center;
+    padding: 3px 0px;
+    }
+
+    .vote-up{
+    background-size: contain;
+    cursor: pointer;
+    background-image: url("../images/UpVoteButton.svg") ;   
+    }
+    .add-this{
+    background-image: url("../images/Add_Item.svg") ;
+    background-size: contain;
+    cursor: pointer;
+    }
+
+}
 
 
 
