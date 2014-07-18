@@ -35,6 +35,12 @@ app.config(function ($routeProvider) {
       controller: 'CategoryCtrl',
       authenticationRequired: true
     })
+    .when('/dashboard', {
+      templateUrl : 'views/dashboard.html',
+      controller : 'dashCtrl',
+      authenticationRequired : true
+    })
+
     .otherwise({
       redirectTo: '/home'
     });
