@@ -31,7 +31,6 @@ app.controller('CategoryCtrl',
 
     $scope.availableItems = $firebase(itemStoreRef);
     $scope.todaysVotes = getTodaysVotes();
-
     $scope.categories = [
       {href: 'healthy', title: 'Healthy Bites'},
       {href: 'snacks', title: 'Snacks'},
@@ -40,6 +39,9 @@ app.controller('CategoryCtrl',
 
     $scope.currentUser = AuthenticationService.getCurrentUser();
 
+    $scope.todaysVotes.$on('loaded', function() {
+       $scope.$apply();
+    });
     $scope.getVoteCount = function(itemVotesDict){
       return _.keys(itemVotesDict).length;
       // console.log(itemVotesDict);

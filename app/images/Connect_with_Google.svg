@@ -16,9 +16,9 @@
         <g id="Login" sketch:type="MSArtboardGroup" transform="translate(-426.000000, -527.000000)">
             <g sketch:type="MSLayerGroup" transform="translate(426.000000, 527.000000)">
                 <g>
-                    <rect id="Rectangle-32" fill-opacity="0.742668705" fill="#FFFFFF" filter="url(#filter-1)" sketch:type="MSShapeGroup" x="0" y="0" width="745" height="144" rx="8"></rect>
+                    <rect id="Rectangle-32" fill-opacity="0.742668705" fill="#FFFFFF" filter="url(#filter-1)" sketch:type="MSShapeGroup" x="0" y="0" width="750" height="144" rx="8"></rect>
                     <text id="Connect-with-Google" sketch:type="MSTextLayer" font-family="Avenir Next" font-size="54.5454545" font-weight="420" fill="#000000">
-                        <tspan x="180" y="84">Connect with Google</tspan>
+                        <tspan x="150" y="90">Connect with Google</tspan>
                     </text>
                 </g>
                 <g id="google＋" transform="translate(21.000000, 18.000000)">
