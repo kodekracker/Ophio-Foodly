@@ -28,7 +28,9 @@
                 <div class="row">
                     <div class="col-xs-8 item-place">
                         <div class="row">
-                            <div class="col-xs-2 lf-box pull-left"></div>
+                            <div class="col-xs-2 lf-box pull-left item-tag">
+                                {{item.name.substr(0,1).toUpperCase()}}
+                            </div>
                             <div class="col-xs-9 item-desc">{{item.name}}</div>
                         </div>
                     </div>
@@ -47,15 +49,19 @@
     <div class="row"  ng-show="temp.addingItem">
         <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 item-box">
             <div class="row">
+                <form name="itemAddForm" ng-submit="itemAddForm.$valid && addNewItem()">
                 <div class="col-xs-8 item-place">
                     <div class="row">
-                        <div class="col-xs-2 lf-box pull-left"></div>
+                        <div class="col-xs-2 lf-box pull-left item-tag">
+                            {{temp.itemName.substr(0,1).toUpperCase()}}
+                        </div>
                         <div class="col-xs-9 item-desc">
                             <input type="text" ng-model="temp.itemName" placeholder="Add Item" required>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-2 add-this sqr-box" ng-click="addNewItem();" ng-if="temp.itemName.length > 0"></div>
+                </form>
             </div>
         </div>
     </div>

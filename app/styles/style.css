@@ -48,17 +48,18 @@ h1{
     margin-top:10px;
     margin-bottom: 100px;
 }
+
 .navbar-toggle {
     margin-top:15px;
     margin-bottom: 15px;
 }
 
-.navbar-toggle .icon-bar {
+.navbar-toggle:hover {
     background-color: #ffffff;
 }
 
-.icon-bar:hover{
-    background-color: rgba(0, 131, 250, 1);
+.navbar-toggle .icon-bar {
+    background-color: #ffffff;
 }
 
 .navbar a{
@@ -167,7 +168,7 @@ ul#cat-menu > li.active > a{
 }
 
 .login_wrap p {
-    color: rgba(255, 255, 255, 0.8);
+    color: #ffffff;
     margin-bottom: 50px;
 }
 
@@ -175,7 +176,9 @@ ul#cat-menu > li.active > a{
     background: rgba(255,255,255,0.7);
     border-radius: 10px;
     padding: 10px;
+    outline: none;
 }
+
 .login_wrap button:hover {
     background: rgba(255,255,255,0.8);
 }
@@ -192,9 +195,6 @@ ul#cat-menu > li.active > a{
     height: 60px;
     width: 60px;
 }
-
-
-
 
 #login , #home{
     margin-top: 50px;
@@ -224,6 +224,7 @@ ul#cat-menu > li.active > a{
 .pointer{
     cursor: pointer;
 }
+
 @media screen and (max-width: 768px) and (max-height: 830px) {
 
     body{
@@ -248,6 +249,12 @@ ul#cat-menu > li.active > a{
 
 /* ----------Item Display css-----------  */
 
+.item-tag{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 0px 10px;
+}
 .box{
     display: inline-block;
 
@@ -338,6 +345,12 @@ ul#cat-menu > li.active > a{
         font-size: 0.9em;
     }
 
+    .item-tag{
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 1.2em;
+        padding: 0px 5px;
+    }
     .login_wrap {
         position: absolute;
         width: 300px;
