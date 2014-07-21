@@ -1,44 +1,84 @@
 #! /usr/bin/env python
 # -*- coding : utf-8 -*-
-
+import os
+import logging
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
 from mako.template import Template
 
+from settings import LOGGER_NAME
+from settings import SUBJECT
+from settings import FROM
+from settings import TO
+
+SMTP_USER = os.getenv('sendgriduser', None)
+SMTP_PASSWORD = os.getenv('sendgridpass', None)
+
 def sendMail(data):
-    smtp_user = "theskumar"
-    smtp_pwd = "abc123"
-
-    FROM = 'sunny@ophio.co.in'
-    TO = ['sunnylautner40@gmail.com']
-    # Create message container - the correct MIME type is multipart/alternative.
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Top Eateries at Foodly"
-    msg['From'] = "sunny@ophio.co.in"
-    msg['To'] = "akshay@ophio.co.in"
-
-    # Create the body of the message (a plain-text and an HTML version).
-    mytemplate = Template(filename='template.html', module_directory='/tmp/mako_modules')
-    html = mytemplate.render(data=data)
-
-    # Record the MIME types of both parts - text/plain and text/html.
-    part2 = MIMEText(html, 'html')
-
-    # Attach parts into message container.
-    # According to RFC 2046, the last part of a multipart message, in this case
-    # the HTML message, is best and preferred.
-    msg.attach(part2)
-
+    # Set Logger Object
+    logger = logging.getLogger(LOGGER_NAME)
 
     try:
-        #server = smtplib.SMTP(SERVER)
-        server = smtplib.SMTP('smtp.sendgrid.net') #or port 465 doesn't seem to work!
+        # Create message container - the correct MIME type is
+        # multipart/alternative.
+        msg = MIMEMultipart('alternative')
+
+        msg['Subject'] = SUBJECT
+        msg['From'] = FROM
+        msg['To'] = TO
+
+        # Create the body of the message (an HTML version).
+        mytemplate = Template(filename='template.html')
+        html = mytemplate.render(data=data)
+
+        # Record the MIME types of text/html.
+        part = MIMEText(html, 'html')
+
+        # Attach part into message container.
+        msg.attach(part)
+
+        # Set SMTP server login ceredentials and send mail
+        server = smtplib.SMTP('smtp.sendgrid.net')
         server.starttls()
-        server.login(smtp_user, smtp_pwd)
+        server.login(SMTP_USER, SMTP_PASSWORD)
         server.sendmail(FROM, TO, msg.as_string())
-        #server.quit()
         server.quit()
-        print 'successfully sent the mail'
-    except:
-        print "failed to send mail"
+        logger.info('Successfully sent the mail')
+    except Exception as e:
+        logger.exception("Failed to send mail")
+
+def sendIntroMail():
+    # Set Logger Object
+    logger = logging.getLogger(LOGGER_NAME)
+    data = {'username':'Sunny'}
+    try:
+        # Create message container - the correct MIME type is
+        # multipart/alternative.
+        msg = MIMEMultipart('alternative')
+
+        msg['Subject'] = SUBJECT
+        msg['From'] = FROM
+        msg['To'] = ','.join(TO)
+
+        # Create the body of the message (an HTML version).
+        mytemplate = Template(filename='template2.html')
+        html = mytemplate.render(data=data)
+
+        # Record the MIME types of text/html.
+        part = MIMEText(html, 'html')
+
+        # Attach part into message container.
+        msg.attach(part)
+        print SMTP_USER, ' ', SMTP_PASSWORD
+        # Set SMTP server login ceredentials and send mail
+        server = smtplib.SMTP('smtp.sendgrid.net')
+        server.starttls()
+        server.login(SMTP_USER, SMTP_PASSWORD)
+        server.sendmail(FROM, TO, msg.as_string())
+        server.quit()
+        logger.info('Successfully sent the mail')
+    except Exception as e:
+        logger.exception("Failed to send mail")
+

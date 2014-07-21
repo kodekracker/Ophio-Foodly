@@ -2,12 +2,16 @@
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand brand" href="#">Ophio Foodly</a>
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="brandhead">
+              <a href="#">
+                <img class="img-responsive" src="images/Ophio_Foodly_Logo.png">
+              </a>
+            </div>
         </div>
         <div class="hidden-sm collapse navbar-collapse" id="bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav navbar-right" id="cat-menu">
@@ -21,57 +25,107 @@
     </div>
 </nav>
 <div class="container" id="category">
-    <div ng-repeat="(item_id, item) in availableItems | orderBy:'name'"
-      ng-if="item.category == temp.currentCategory">
-        <div class="row">
+    <div class="loader" ng-if="temp.loadingData">
+        <div id="fountainG">
+            <div id="fountainG_1" class="fountainG">
+            </div>
+            <div id="fountainG_2" class="fountainG">
+            </div>
+            <div id="fountainG_3" class="fountainG">
+            </div>
+            <div id="fountainG_4" class="fountainG">
+            </div>
+            <div id="fountainG_5" class="fountainG">
+            </div>
+            <div id="fountainG_6" class="fountainG">
+            </div>
+            <div id="fountainG_7" class="fountainG">
+            </div>
+            <div id="fountainG_8" class="fountainG">
+            </div>
+        </div>
+    </div>
+    <div ng-if="!temp.loadingData">
+        <div ng-repeat="(item_id, item) in availableItems | orderBy:'name'"
+          ng-if="item.category == temp.currentCategory">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 item-box">
+                    <div class="row">
+                        <div class="col-xs-8 item-place">
+                            <div class="row">
+                                <div class="col-xs-2 lf-box pull-left item-tag">
+                                    {{item.name.substr(0,1).toUpperCase()}}
+                                </div>
+                                <div class="col-xs-9 item-desc">{{item.name}}</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 item-vote sqr-box" ng-if="todaysVotes[item_id]">
+                            <span>{{getVoteCount(todaysVotes[item_id])}}</span>
+                        </div>
+                        <div class="col-xs-2 item-vote sqr-box" ng-if="!todaysVotes[item_id]">
+                            0
+                        </div>
+                        <div class="col-xs-2 vote-up sqr-box" ng-click="upVoteItem(item_id, item)" ng-if="!todaysVotes[item_id] || !todaysVotes[item_id][currentUser.id]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"  ng-show="temp.addingItem">
             <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 item-box">
                 <div class="row">
+                    <form name="itemAddForm" ng-submit="itemAddForm.$valid && addNewItem()">
                     <div class="col-xs-8 item-place">
                         <div class="row">
                             <div class="col-xs-2 lf-box pull-left item-tag">
-                                {{item.name.substr(0,1).toUpperCase()}}
+                                {{temp.itemName.substr(0,1).toUpperCase()}}
                             </div>
-                            <div class="col-xs-9 item-desc">{{item.name}}</div>
+                            <div class="col-xs-9 item-desc">
+                                <input type="text" ng-model="temp.itemName" placeholder="Add Item" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xs-2 item-vote sqr-box" ng-if="todaysVotes[item_id]">
-                        <span>{{getVoteCount(todaysVotes[item_id])}}</span>
-                    </div>
-                    <div class="col-xs-2 item-vote sqr-box" ng-if="!todaysVotes[item_id]">
-                        0
-                    </div>
-                    <div class="col-xs-2 vote-up sqr-box" ng-click="upVoteItem(item_id)" ng-if="!todaysVotes[item_id] || !todaysVotes[item_id][currentUser.id]">
-                    </div>
+                    <div class="col-xs-2 add-this sqr-box" ng-click="addNewItem();" ng-if="temp.itemName.length > 0"></div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row"  ng-show="temp.addingItem">
-        <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 item-box">
-            <div class="row">
-                <form name="itemAddForm" ng-submit="itemAddForm.$valid && addNewItem()">
-                <div class="col-xs-8 item-place">
-                    <div class="row">
-                        <div class="col-xs-2 lf-box pull-left item-tag">
-                            {{temp.itemName.substr(0,1).toUpperCase()}}
-                        </div>
-                        <div class="col-xs-9 item-desc">
-                            <input type="text" ng-model="temp.itemName" placeholder="Add Item" required>
-                        </div>
+        <div class="row">
+            <div class="col-xs-4 col-sm-6 col-sm-offset-2 col-md-4 col-md-offset-2">
+                <div class="row">
+                    <div class="col-xs-5 col-xs-offset-1 col-md-offset-2 new-item box" ng-if="!temp.addingItem">
+                        <div class="plus-img" ng-click="temp.addingItem = true"></div>
                     </div>
-                </div>
-                <div class="col-xs-2 add-this sqr-box" ng-click="addNewItem();" ng-if="temp.itemName.length > 0"></div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-4 col-sm-6 col-sm-offset-2 col-md-4 col-md-offset-2">
-            <div class="row">
-                <div class="col-xs-5 col-xs-offset-1 col-md-offset-2 new-item box" ng-if="!temp.addingItem">
-                    <div class="plus-img" ng-click="temp.addingItem = true"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade votealert">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="btn btn-info voteclose" data-dismiss="modal">Close</button>
+        <h2 class="modal-title">Ophio Foodly</h2>
+      </div>
+      <div class="modal-body">
+        <p><strong>Sorry!</strong>
+            <span class="glyphicon glyphicon-ban-circle"></span> Voting is closed now. Vote between &nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp; (10am- 6pm)&hellip;
+        </p>
+      </div>
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+<div class="modal fade connectionalert">
+  <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">Ophio Foodly</h2>
+          </div>
+          <div class="modal-body">
+            <p><strong>Oops!</strong>&nbsp; Check your Internet Connection&hellip; <span class="glyphicon glyphicon-globe"></span></p>
+          </div>
+      </div><!-- /.modal-dialog -->
+  </div>
+</div>
+
