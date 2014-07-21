@@ -16,7 +16,8 @@
     "firebase": "~1.0.17",
     "angularfire": "~0.7.1",
     "ngstorage": "https://github.com/gsklee/ngStorage.git#~0.3.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "dangle": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

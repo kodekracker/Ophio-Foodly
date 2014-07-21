@@ -16,7 +16,7 @@ var app  = angular.module('ophioFoodly', [
     'ngSanitize',
     'ngTouch',
     'firebase',
-    'ngStorage'
+    'ngStorage',
   ]);
 
 app.config(function ($routeProvider) {
@@ -37,7 +37,7 @@ app.config(function ($routeProvider) {
     })
     .when('/dashboard', {
       templateUrl : 'views/dashboard.html',
-      controller : 'dashCtrl',
+      controller : 'CategoryCtrl',
       authenticationRequired : true
     })
 
