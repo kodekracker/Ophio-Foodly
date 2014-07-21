@@ -3,42 +3,38 @@
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from mako.template import Template
 
-def sendMail(data):
-    smtp_user = "theskumar"
-    smtp_pwd = "abc123"
+from settings import FROM
+from settings import Top
+from settings import SMTP_USER
+from settings import SMTP_PASSWORD
 
-    FROM = 'sunny@ophio.co.in'
-    TO = ['sunnylautner40@gmail.com']
+def sendMail(data):
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
+
     msg['Subject'] = "Top Eateries at Foodly"
     msg['From'] = "sunny@ophio.co.in"
     msg['To'] = "akshay@ophio.co.in"
 
-    # Create the body of the message (a plain-text and an HTML version).
+    # Create the body of the message (an HTML version).
     mytemplate = Template(filename='template.html', module_directory='/tmp/mako_modules')
     html = mytemplate.render(data=data)
 
-    # Record the MIME types of both parts - text/plain and text/html.
-    part2 = MIMEText(html, 'html')
+    # Record the MIME types of text/html.
+    part = MIMEText(html, 'html')
 
-    # Attach parts into message container.
-    # According to RFC 2046, the last part of a multipart message, in this case
-    # the HTML message, is best and preferred.
-    msg.attach(part2)
-
+    # Attach part into message container.
+    msg.attach(part)
 
     try:
-        #server = smtplib.SMTP(SERVER)
-        server = smtplib.SMTP('smtp.sendgrid.net') #or port 465 doesn't seem to work!
+        # Or port 465 doesn't seem to work!
+        server = smtplib.SMTP('smtp.sendgrid.net')
         server.starttls()
-        server.login(smtp_user, smtp_pwd)
+        server.login(SMTP_USER, SMTP_PASSWORD)
         server.sendmail(FROM, TO, msg.as_string())
-        #server.quit()
         server.quit()
-        print 'successfully sent the mail'
-    except:
-        print "failed to send mail"
+        print 'Successfully sent the mail'
+    except Exception as e:
+        print "Failed to send mail :: ", str(e)

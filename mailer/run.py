@@ -8,56 +8,83 @@ from datetime import date
 from firebase import firebase
 from mail import sendMail
 
-FIRE_BASE = firebase.FirebaseApplication('https://ophiofoodly.firebaseio.com', None)
+from settings import TOP
+
+FIRE_BASE = firebase.FirebaseApplication(
+    'https://ophiofoodly.firebaseio.com', None)
+
 
 def getTodayDate():
+    """
+    Return today date in ISO format (i.e YEAR-MONTH-DAY)
+    """
     today = date.today()
     return today.isoformat()
 
+
 def fetchItems():
-    items = FIRE_BASE.get('/availableItems',None)
+    """
+    Return the dict of items from FIREBASE database
+    """
+    items = FIRE_BASE.get('/availableItems', None)
     return items
 
+
 def fetchVotes():
+    """
+    Return the dict of votes from FIREBASE database of today date
+    """
     todayDate = getTodayDate()
     items = FIRE_BASE.get('/votes', todayDate)
     return items
 
-def getTopItems(result,top=3):
-    ret = {}
-    for category, items in result.iteritems():
-        items = sorted(items,key= itemgetter('votes'), reverse=True)
-        ret[category] = items[:top]
-    return ret
 
 def getItemsByCategory(items, votes):
+    """
+    Return the items in category wise
+    """
     result = {}
     for item_id, voters in votes.iteritems():
         total_voters = len(voters)
         item_name = items[item_id]['name']
         item_cat = items[item_id]['category']
         if item_cat in result:
-            result[item_cat].append({'item_name':item_name,'votes':total_voters})
+            result[item_cat].append(
+                {'item_name': item_name, 'votes': total_voters})
         else:
-            result[item_cat]= [{'item_name':item_name,'votes':total_voters}]
+            result[item_cat] = [
+                {'item_name': item_name, 'votes': total_voters}]
     return result
 
+
+def getTopItems(result, top=3):
+    """
+    Return the top items of each category of items
+    """
+    ret = {}
+    for category, items in result.iteritems():
+        items = sorted(items, key=itemgetter('votes'), reverse=True)
+        ret[category] = items[:top]
+    return ret
+
+
 def main():
+    # Store the results
     result = {}
 
-    # get Items
+    # Get Items
     items = fetchItems()
 
-    # get Votes
+    # Get Votes
     votes = fetchVotes()
 
-    # get items by category
+    # Get items by category
     result = getItemsByCategory(items, votes)
 
-    # get top items
-    result = getTopItems(result,2)
+    # Get top items
+    result = getTopItems(result, TOP)
 
-    # send mail to users
+    # Send mail to users
     sendMail(result)
 
 if __name__ == "__main__":
