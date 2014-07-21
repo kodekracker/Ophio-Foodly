@@ -24,6 +24,17 @@ app.controller('CategoryCtrl',
       return voteRef;
     };
 
+    $scope.resultsDate = {
+      entries: [
+        {time: 1, count: 100},
+        {time: 2, count: 20},
+        {time: 3, count: 43}
+      ]
+    };
+
+
+
+
     $scope.temp = {};
     $scope.temp.addingItem = false;
     $scope.temp.newItemName = '';
