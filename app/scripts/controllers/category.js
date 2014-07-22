@@ -13,7 +13,7 @@
 var app  = angular.module('ophioFoodly');
 
 app.controller('CategoryCtrl',
-  function ($scope, settings, AuthenticationService, $filter, $routeParams, $firebase) {
+  function ($scope, $timeout, loader, settings, AuthenticationService, $filter, $routeParams, $firebase) {
     var firebaseRef = new Firebase(settings.FIREBASE_URL);
     var itemStoreRef = firebaseRef.child('availableItems');
     var voteStoreRef = firebaseRef.child('votes');
@@ -35,6 +35,7 @@ app.controller('CategoryCtrl',
     $scope.temp = {};
     $scope.temp.addingItem = false;
     $scope.temp.newItemName = '';
+    $scope.temp.loadingData = loader.getloadvalue();
     $scope.temp.currentCategory = $routeParams.category;
 
     $scope.availableItems = $firebase(itemStoreRef);
@@ -45,7 +46,30 @@ app.controller('CategoryCtrl',
       {href: 'drinks', title: 'Drinks'}
     ];
 
+    var checkConnection = function(){
+      if(!navigator.onLine){
+        $('.connectionalert').modal({
+          backdrop: 'static',
+          show: true
+        });
+        $timeout(checkConnection, 1000);
+      }
+      else{
+        $('.connectionalert').modal('hide');
+      }
+    };
+
+    if(!navigator.onLine){
+      $timeout(checkConnection, 1000);
+    }
+
     $scope.currentUser = AuthenticationService.getCurrentUser();
+
+    $scope.availableItems.$on('loaded', function() {
+        loader.setloadvalue(false);
+        $scope.temp.loadingData = loader.getloadvalue();
+        $scope.$apply();
+    });
 
     $scope.todaysVotes.$on('loaded', function() {
        $scope.$apply();
