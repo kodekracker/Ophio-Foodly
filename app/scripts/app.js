@@ -57,6 +57,17 @@ app.service('settings', function (){
   };
 });
 
+app.service('loader', function(){
+  this.loadingData =  true;
+  this.getloadvalue = function(){
+    return this.loadingData;
+  };
+  this.setloadvalue = function(val){
+    this.loadingData = val;
+  };
+
+});
+
 app.service('AuthenticationService',function(settings, $localStorage, $firebaseSimpleLogin, $location){
   this.isLoggedIn = function(){
     var token =  this.getAuthToken();
