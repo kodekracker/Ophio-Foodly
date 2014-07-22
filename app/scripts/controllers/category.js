@@ -51,18 +51,21 @@ app.controller('CategoryCtrl',
        $scope.$apply();
     });
     $scope.getVoteCount = function(itemVotesDict){
-      return _.keys(itemVotesDict).length;
+      return _.keys(itemVotesDict).length-1;
       // console.log(itemVotesDict);
     };
 
-    $scope.upVoteItem = function(itemId){
+    $scope.upVoteItem = function(itemId, item){
       var d = new Date();
       var vhr = d.getHours();
       var vmin = d.getMinutes();
       if (vhr >=10 && vhr <= 17 ) {
       var itemVotes = $scope.todaysVotes.$child(itemId);
+      itemVotes.item_name = item.name;
+      itemVotes.$save();
       var vote = itemVotes.$child($scope.currentUser.id);
       vote.createdAt = new Date();
+      vote.username = $scope.currentUser.displayName;
       vote.$save();
       }
       else{

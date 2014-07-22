@@ -45,7 +45,7 @@ def getItemsByCategory(items, votes):
     """
     result = {}
     for item_id, voters in votes.iteritems():
-        total_voters = len(voters)
+        total_voters = len(voters)-1
         item_name = items[item_id]['name']
         item_cat = items[item_id]['category']
         if item_cat in result:
