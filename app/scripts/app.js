@@ -40,7 +40,6 @@ app.config(function ($routeProvider) {
       controller : 'CategoryCtrl',
       authenticationRequired : true
     })
-
     .otherwise({
       redirectTo: '/home'
     });
