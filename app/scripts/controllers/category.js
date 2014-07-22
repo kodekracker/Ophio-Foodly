@@ -32,9 +32,6 @@ app.controller('CategoryCtrl',
       ]
     };
 
-
-
-
     $scope.temp = {};
     $scope.temp.addingItem = false;
     $scope.temp.newItemName = '';
@@ -59,10 +56,18 @@ app.controller('CategoryCtrl',
     };
 
     $scope.upVoteItem = function(itemId){
+      var d = new Date();
+      var vhr = d.getHours();
+      var vmin = d.getMinutes();
+      if (vhr >=10 && vhr <= 17 ) {
       var itemVotes = $scope.todaysVotes.$child(itemId);
       var vote = itemVotes.$child($scope.currentUser.id);
       vote.createdAt = new Date();
       vote.$save();
+      }
+      else{
+        $('.votealert').modal('toggle');
+      }
     };
 
     $scope.addNewItem = function(){
