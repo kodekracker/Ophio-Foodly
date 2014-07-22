@@ -40,7 +40,7 @@
                     <div class="col-xs-2 item-vote sqr-box" ng-if="!todaysVotes[item_id]">
                         0
                     </div>
-                    <div class="col-xs-2 vote-up sqr-box" ng-click="upVoteItem(item_id)" ng-if="!todaysVotes[item_id] || !todaysVotes[item_id][currentUser.id]">
+                    <div class="col-xs-2 vote-up sqr-box" ng-click="upVoteItem(item_id, item)" ng-if="!todaysVotes[item_id] || !todaysVotes[item_id][currentUser.id]">
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
         <h2 class="modal-title">Ophio Foodly</h2>
       </div>
       <div class="modal-body">
-        <p><strong>Sorry!</strong> Voting is closed now. Vote between (1000-1800 hr)&hellip;</p>
+        <p><strong>Sorry!</strong> Voting is closed now. Vote between (10am- 6pm)&hellip;</p>
       </div>
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
