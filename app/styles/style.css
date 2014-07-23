@@ -41,15 +41,17 @@ h1{
 .brandhead img{
     margin: 5px 10px;
     height: 80px;
+
 }
 
 .brand{
-    margin: 1% 25%;
-    padding: 0 20px 0 30px;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 .brand img{
     height: 100px;
+    width: 220px;
 }
 
 #category{

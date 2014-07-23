@@ -14,6 +14,7 @@ from datetime import date
 from firebase import firebase
 
 from mail import sendMail
+from mail import sendIntroMail
 from settings import FIREBASE_URL
 from settings import TOP
 from settings import JOB_TIME
@@ -139,8 +140,19 @@ def job():
         sendMail(result)
     logger.info('Job Completed')
 
+def job2():
+    # Set Logger Object
+    logger = logging.getLogger(LOGGER_NAME)
 
-schedule.every().day.at(JOB_TIME).do(job)
+    logger.info('Job2 Start')
+    # send intro mail to users
+    sendIntroMail()
+    print 'Okkk'
+
+    logger.info('Job2 Completed')
+
+# schedule.every().day.at(JOB_TIME).do(job)
+# schedule.every(1).minutes.do(job2)
 
 if __name__ == '__main__':
     # Create a logs direcory if not exist
@@ -151,7 +163,8 @@ if __name__ == '__main__':
     log_file = LOG_DIR + '/' + LOG_FILE_NAME
     setup_logger(LOGGER_NAME, log_file, level=logging.DEBUG)
 
+    job2()
     # Run Scheduler
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    # while True:
+        # schedule.run_pending()
+        # time.sleep(1)
