@@ -83,7 +83,7 @@ app.controller('CategoryCtrl',
       var d = new Date();
       var vhr = d.getHours();
       var vmin = d.getMinutes();
-      if (vhr >=10 && vhr <= 17 ) {
+      if (vhr >=10 && vhr <= 13 ) {
       var itemVotes = $scope.todaysVotes.$child(itemId);
       itemVotes.item_name = item.name;
       itemVotes.$save();
