@@ -1,6 +1,10 @@
 #! /usr/bin/env python
 # -*- coding : utf-8 -*-
+<<<<<<< HEAD
 
+=======
+import os
+>>>>>>> mailer-ophio
 import logging
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -12,9 +16,15 @@ from settings import LOGGER_NAME
 from settings import SUBJECT
 from settings import FROM
 from settings import TO
+<<<<<<< HEAD
 from settings import SMTP_USER
 from settings import SMTP_PASSWORD
 
+=======
+
+SMTP_USER = os.getenv('sendgriduser', None)
+SMTP_PASSWORD = os.getenv('sendgridpass', None)
+>>>>>>> mailer-ophio
 
 def sendMail(data):
     # Set Logger Object
@@ -24,6 +34,7 @@ def sendMail(data):
         # Create message container - the correct MIME type is
         # multipart/alternative.
         msg = MIMEMultipart('alternative')
+<<<<<<< HEAD
 
         msg['Subject'] = SUBJECT
         msg['From'] = FROM
@@ -39,6 +50,23 @@ def sendMail(data):
         # Attach part into message container.
         msg.attach(part)
 
+=======
+
+        msg['Subject'] = SUBJECT
+        msg['From'] = FROM
+        msg['To'] = TO
+
+        # Create the body of the message (an HTML version).
+        mytemplate = Template(filename='template.html')
+        html = mytemplate.render(data=data)
+
+        # Record the MIME types of text/html.
+        part = MIMEText(html, 'html')
+
+        # Attach part into message container.
+        msg.attach(part)
+
+>>>>>>> mailer-ophio
         # Set SMTP server login ceredentials and send mail
         server = smtplib.SMTP('smtp.sendgrid.net')
         server.starttls()
@@ -71,7 +99,10 @@ def sendIntroMail():
 
         # Attach part into message container.
         msg.attach(part)
+<<<<<<< HEAD
 
+=======
+>>>>>>> mailer-ophio
         # Set SMTP server login ceredentials and send mail
         server = smtplib.SMTP('smtp.sendgrid.net')
         server.starttls()

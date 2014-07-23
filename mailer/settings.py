@@ -10,10 +10,6 @@ TOP = 3
 # Set the job exceution time in a day (use 24-hour format i.e 13:00)
 JOB_TIME = "20:00"
 
-# SMTP Cerendentials
-SMTP_USER = "theskumar"
-SMTP_PASSWORD = "abc123"
-
 # Sender/Reciever Details and Subject
 SUBJECT = 'Top Eatries of foodly'
 FROM = 'sunny@ophio.co.in'
