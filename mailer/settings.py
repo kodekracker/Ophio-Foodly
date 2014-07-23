@@ -11,8 +11,8 @@ TOP = 3
 JOB_TIME = "20:00"
 
 # SMTP Cerendentials
-SMTP_USER = "theskumar"
-SMTP_PASSWORD = "abc123"
+SMTP_USER = "username_here"
+SMTP_PASSWORD = "ur_passhere"
 
 # Sender/Reciever Details and Subject
 SUBJECT = 'Top Eatries of foodly'
