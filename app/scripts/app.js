@@ -16,7 +16,7 @@ var app  = angular.module('ophioFoodly', [
     'ngSanitize',
     'ngTouch',
     'firebase',
-    'ngStorage'
+    'ngStorage',
   ]);
 
 app.config(function ($routeProvider) {
@@ -37,10 +37,9 @@ app.config(function ($routeProvider) {
     })
     .when('/dashboard', {
       templateUrl : 'views/dashboard.html',
-      controller : 'dashCtrl',
+      controller : 'CategoryCtrl',
       authenticationRequired : true
     })
-
     .otherwise({
       redirectTo: '/home'
     });
@@ -56,6 +55,17 @@ app.service('settings', function (){
     var suffix = this.REQUIRED_EMAIL_SUFFIX;
     return email.match(suffix+'$')[0] === suffix;
   };
+});
+
+app.service('loader', function(){
+  this.loadingData =  true;
+  this.getloadvalue = function(){
+    return this.loadingData;
+  };
+  this.setloadvalue = function(val){
+    this.loadingData = val;
+  };
+
 });
 
 app.service('AuthenticationService',function(settings, $localStorage, $firebaseSimpleLogin, $location){
