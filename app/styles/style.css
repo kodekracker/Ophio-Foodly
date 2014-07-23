@@ -34,12 +34,19 @@ h1{
     color: #ffffff;
 }
 
+.brandhead img{
+    width: 40%;
+}
+
 .brand{
     margin: 0;
-    margin-top: 20px;
     margin-left: 20px;
     padding: 0;
     font-size: 2em;
+}
+
+.brand a{
+    text-decoration: none;
 }
 
 #category{
