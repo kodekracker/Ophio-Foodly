@@ -71,7 +71,6 @@ def sendIntroMail():
 
         # Attach part into message container.
         msg.attach(part)
-        print SMTP_USER, ' ', SMTP_PASSWORD
         # Set SMTP server login ceredentials and send mail
         server = smtplib.SMTP('smtp.sendgrid.net')
         server.starttls()
