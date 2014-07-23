@@ -34,19 +34,22 @@ h1{
     color: #ffffff;
 }
 
+.brandlogo{
+    margin: 1% 30%;
+}
+
 .brandhead img{
-    width: 40%;
+    margin: 5px 10px;
+    height: 80px;
 }
 
 .brand{
-    margin: 0;
-    margin-left: 20px;
-    padding: 0;
-    font-size: 2em;
+    margin: 1% 25%;
+    padding: 0 20px 0 30px;
 }
 
-.brand a{
-    text-decoration: none;
+.brand img{
+    height: 100px;
 }
 
 #category{
@@ -167,8 +170,8 @@ ul#cat-menu > li.active > a{
     height: 150px;
     top: 50%;
     left: 50%;
-    margin-top: -150px;
-    margin-left: -15%;
+    margin-top: -100px;
+    margin-left: -200px;
     text-align: center;
 }
 
@@ -202,7 +205,7 @@ ul#cat-menu > li.active > a{
 }
 
 #login , #home{
-    margin-top: 50px;
+    margin-top: 10%;
 }
 
 #caption p{
@@ -342,6 +345,9 @@ ul#cat-menu > li.active > a{
 
 @media (max-width: 768px){
 
+    .brandlogo{
+        margin: 5% 25%;
+    }
 
     .modal-content{
     font-size: 0.7em;
@@ -374,7 +380,7 @@ ul#cat-menu > li.active > a{
         height: 150px;
         top: 50%;
         left: 50%;
-        margin-top: -140px;
+        margin-top: -100px;
         margin-left: -150px;
         text-align: center;
     }
