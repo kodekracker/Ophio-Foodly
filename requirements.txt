@@ -1,2 +1,6 @@
 fabric
 ghp-import
+requests
+python-firebase
+Mako
+schedule
