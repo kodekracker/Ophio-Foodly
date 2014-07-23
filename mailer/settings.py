@@ -15,7 +15,7 @@ SMTP_USER = "theskumar"
 SMTP_PASSWORD = "abc123"
 
 # Sender/Reciever Details and Subject
-SUBJECT = "Top Eatries of foodly"
+SUBJECT = 'Top Eatries of foodly'
 FROM = 'sunny@ophio.co.in'
 TO = ['sunnylautner40@gmail.com']
 
