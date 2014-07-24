@@ -17,7 +17,8 @@ from mail import sendMail
 from mail import sendIntroMail
 from settings import FIREBASE_URL
 from settings import TOP
-from settings import JOB_TIME
+from settings import JOB1_TIME
+from settings import JOB2_TIME
 from settings import LOG_DIR
 from settings import LOG_FILE_NAME
 from settings import LOGGER_NAME
@@ -32,12 +33,12 @@ def setup_logger(logger_name, log_file, level=logging.INFO):
 
     # create file handler which logs even debug messages
     fh = logging.handlers.RotatingFileHandler(
-        log_file, maxBytes=1024, backupCount=5)
+        log_file, maxBytes=10485760, backupCount=5)
     fh.setLevel(logging.DEBUG)
 
     # create console handler with a higher log level
     ch = logging.StreamHandler()
-    ch.setLevel(logging.ERROR)
+    ch.setLevel(logging.DEBUG)
 
     # create formatter and add it to the handlers
     formatter = logging.Formatter(
@@ -106,11 +107,22 @@ def getTopItems(result, top=3):
     return ret
 
 
-def job():
+def job1():
     # Set Logger Object
     logger = logging.getLogger(LOGGER_NAME)
 
-    logger.info('Job Start')
+    logger.info('Job1 Start')
+    # send intro mail to users
+    sendIntroMail()
+
+    logger.info('Job1 Completed')
+
+
+def job2():
+    # Set Logger Object
+    logger = logging.getLogger(LOGGER_NAME)
+
+    logger.info('Job2 Start')
     # Store the results
     result = {}
 
@@ -138,21 +150,10 @@ def job():
     print 'Result:: ', result
     if result:
         sendMail(result)
-    logger.info('Job Completed')
-
-def job2():
-    # Set Logger Object
-    logger = logging.getLogger(LOGGER_NAME)
-
-    logger.info('Job2 Start')
-    # send intro mail to users
-    sendIntroMail()
-    print 'Okkk'
-
     logger.info('Job2 Completed')
 
-# schedule.every().day.at(JOB_TIME).do(job)
-# schedule.every(1).minutes.do(job2)
+schedule.every().day.at(JOB1_TIME).do(job1)
+schedule.every().day.at(JOB2_TIME).do(job2)
 
 if __name__ == '__main__':
     # Create a logs direcory if not exist
@@ -163,8 +164,7 @@ if __name__ == '__main__':
     log_file = LOG_DIR + '/' + LOG_FILE_NAME
     setup_logger(LOGGER_NAME, log_file, level=logging.DEBUG)
 
-    job2()
     # Run Scheduler
-    # while True:
-        # schedule.run_pending()
-        # time.sleep(1)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)

@@ -53,7 +53,6 @@ def sendMail(data):
 def sendIntroMail():
     # Set Logger Object
     logger = logging.getLogger(LOGGER_NAME)
-    data = {'username':'Sunny'}
     try:
         # Create message container - the correct MIME type is
         # multipart/alternative.
@@ -65,7 +64,7 @@ def sendIntroMail():
 
         # Create the body of the message (an HTML version).
         mytemplate = Template(filename='template2.html')
-        html = mytemplate.render(data=data)
+        html = mytemplate.render()
 
         # Record the MIME types of text/html.
         part = MIMEText(html, 'html')
