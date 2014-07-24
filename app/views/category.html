@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div ng-if="!temp.loadingData">
+    <div ng-if="!temp.loadingData" >
         <div ng-repeat="(item_id, item) in availableItems | orderBy:'name'"
           ng-if="item.category == temp.currentCategory">
             <div class="row">
@@ -81,7 +81,7 @@
                                 {{temp.itemName.substr(0,1).toUpperCase()}}
                             </div>
                             <div class="col-xs-9 item-desc">
-                                <input type="text" ng-model="temp.itemName" placeholder="Add Item" required>
+                                <input type="text" name="addItemBox" ng-model="temp.itemName" placeholder="Add Item" required autofocus>
                             </div>
                         </div>
                     </div>

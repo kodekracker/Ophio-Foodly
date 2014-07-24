@@ -8,12 +8,13 @@ FIREBASE_URL = 'https://ophiofoodly.firebaseio.com'
 TOP = 3
 
 # Set the job exceution time in a day (use 24-hour format i.e 13:00)
-JOB_TIME = "20:00"
+JOB1_TIME = "10:00"
+JOB2_TIME = "20:00"
 
 # Sender/Reciever Details and Subject
 SUBJECT = 'Top Eatries of foodly'
-FROM = 'sunny@ophio.co.in'
-TO = ['sunnylautner40@gmail.com']
+FROM = 'Ophio Foodly<foodly@ophio.co.in>'
+TO = ['ritesh@ophio.co.in']
 
 # Logger Name
 LOGGER_NAME = 'foodly'
