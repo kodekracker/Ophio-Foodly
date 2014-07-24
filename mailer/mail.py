@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 # -*- coding : utf-8 -*-
+
 import os
 import logging
 import smtplib
@@ -52,7 +53,6 @@ def sendMail(data):
 def sendIntroMail():
     # Set Logger Object
     logger = logging.getLogger(LOGGER_NAME)
-    data = {'username':'Sunny'}
     try:
         # Create message container - the correct MIME type is
         # multipart/alternative.
@@ -64,14 +64,14 @@ def sendIntroMail():
 
         # Create the body of the message (an HTML version).
         mytemplate = Template(filename='template2.html')
-        html = mytemplate.render(data=data)
+        html = mytemplate.render()
 
         # Record the MIME types of text/html.
         part = MIMEText(html, 'html')
 
         # Attach part into message container.
         msg.attach(part)
-        print SMTP_USER, ' ', SMTP_PASSWORD
+
         # Set SMTP server login ceredentials and send mail
         server = smtplib.SMTP('smtp.sendgrid.net')
         server.starttls()

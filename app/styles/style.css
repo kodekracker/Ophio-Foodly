@@ -45,13 +45,7 @@ h1{
 }
 
 .brand{
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
-
-.brand img{
-    height: 100px;
-    width: 220px;
+    margin: 2% 30%;
 }
 
 #category{
@@ -172,7 +166,7 @@ ul#cat-menu > li.active > a{
     height: 150px;
     top: 50%;
     left: 50%;
-    margin-top: -100px;
+    margin-top: -20px;
     margin-left: -200px;
     text-align: center;
 }
@@ -283,7 +277,7 @@ ul#cat-menu > li.active > a{
 
 }
 .item-box{
-    padding: 10px 0px;
+    padding: 14px 0px;
 }
 
 .item-place{
@@ -351,6 +345,10 @@ ul#cat-menu > li.active > a{
         margin: 5% 25%;
     }
 
+    .brand{
+        margin: 7% 25%;
+    }
+
     .modal-content{
     font-size: 0.7em;
     font-family: 'Raleway', sans-serif !important;
@@ -382,7 +380,7 @@ ul#cat-menu > li.active > a{
         height: 150px;
         top: 50%;
         left: 50%;
-        margin-top: -100px;
+        margin-top: -30px;
         margin-left: -150px;
         text-align: center;
     }
