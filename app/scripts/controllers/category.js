@@ -83,7 +83,7 @@ app.controller('CategoryCtrl',
       var d = new Date();
       var vhr = d.getHours();
       var vmin = d.getMinutes();
-      if (vhr >=10 && vhr <= 13 ) {
+      if (vhr >=10 && vhr <= 17 ) {
       var itemVotes = $scope.todaysVotes.$child(itemId);
       itemVotes.item_name = item.name;
       itemVotes.$save();
@@ -101,7 +101,8 @@ app.controller('CategoryCtrl',
       var item = {
         name: $scope.temp.itemName,
         category: $scope.temp.currentCategory,
-        createdBy: $scope.currentUser.id
+        createdBy: $scope.currentUser.id,
+        creatorName: $scope.currentUser.displayName
       };
 
       $scope.availableItems.$add(item);

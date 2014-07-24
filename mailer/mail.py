@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding : utf-8 -*-
 
+import os
 import logging
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -12,9 +13,9 @@ from settings import LOGGER_NAME
 from settings import SUBJECT
 from settings import FROM
 from settings import TO
-from settings import SMTP_USER
-from settings import SMTP_PASSWORD
 
+SMTP_USER = os.getenv('sendgriduser', None)
+SMTP_PASSWORD = os.getenv('sendgridpass', None)
 
 def sendMail(data):
     # Set Logger Object
