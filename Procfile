@@ -1,1 +1,1 @@
-worker: python mailer/run.py
+clock: python mailer/run.py

@@ -1,10 +1,10 @@
 .tmp/
 app/
-bower_components
+bower_components/
 logs/
 node_modules/
 test/
-venv
+venv/
 .bowerrc
 .editorconfig
 .jshintrc
