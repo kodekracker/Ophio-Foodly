@@ -153,9 +153,10 @@ def job2():
     logger.info('Job2 Completed')
 
 schedule.every().day.at(JOB1_TIME).do(job1)
-schedule.every().day.at(JOB2_TIME).do(job2)
+# schedule.every().day.at(JOB2_TIME).do(job2)
 
-if __name__ == '__main__':
+def run():
+    print 'I am working'
     # Create a logs direcory if not exist
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
@@ -168,3 +169,6 @@ if __name__ == '__main__':
     while True:
         schedule.run_pending()
         time.sleep(1)
+
+if __name__ == '__main__':
+    run()

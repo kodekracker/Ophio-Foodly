@@ -1,0 +1,15 @@
+.tmp/
+app/
+bower_components
+logs/
+node_modules/
+test/
+venv
+.bowerrc
+.editorconfig
+.jshintrc
+.travis.yml
+Gruntfile.js
+bower.json
+fabfile.py
+package.json

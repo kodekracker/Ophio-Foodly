@@ -14,7 +14,7 @@ JOB2_TIME = "20:00"
 # Sender/Reciever Details and Subject
 SUBJECT = 'Top Eatries of foodly'
 FROM = 'Ophio Foodly<foodly@ophio.co.in>'
-TO = ['ritesh@ophio.co.in']
+TO = ['sunny@ophio.co.in']
 
 # Logger Name
 LOGGER_NAME = 'foodly'

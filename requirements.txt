@@ -3,4 +3,5 @@ ghp-import
 requests
 python-firebase
 Mako
+gunicorn
 schedule

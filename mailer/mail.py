@@ -31,7 +31,7 @@ def sendMail(data):
         msg['To'] = TO
 
         # Create the body of the message (an HTML version).
-        mytemplate = Template(filename='template.html')
+        mytemplate = Template(filename='mailer/template.html')
         html = mytemplate.render(data=data)
 
         # Record the MIME types of text/html.
@@ -63,7 +63,7 @@ def sendIntroMail():
         msg['To'] = ','.join(TO)
 
         # Create the body of the message (an HTML version).
-        mytemplate = Template(filename='template2.html')
+        mytemplate = Template(filename='mailer/template2.html')
         html = mytemplate.render()
 
         # Record the MIME types of text/html.
