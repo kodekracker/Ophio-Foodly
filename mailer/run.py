@@ -152,7 +152,7 @@ def job2():
         sendMail(result)
     logger.info('Job2 Completed')
 
-schedule.every().day.at(JOB1_TIME).do(job1)
+schedule.every().day.at('20:54').do(job1)
 # schedule.every().day.at(JOB2_TIME).do(job2)
 
 def run():
