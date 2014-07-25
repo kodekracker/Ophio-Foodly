@@ -3,4 +3,4 @@ ghp-import
 requests
 python-firebase
 Mako
-schedule
+apscheduler

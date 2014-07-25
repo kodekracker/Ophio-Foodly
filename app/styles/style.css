@@ -75,7 +75,7 @@ h1{
 }
 
 ul#cat-menu{
-    margin: 10px 0px;
+    margin: 20px 0px;
 }
 
 ul#cat-menu > li{
@@ -284,16 +284,20 @@ ul#cat-menu > li.active > a{
     background-color: #fff;
 }
 .lf-box{
-    height: 50px;
     width: 50px;
     border : 5px solid #fff;
     background-color: rgb(53, 139, 187);
 }
 .item-desc{
-    height: 50px;
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 0;
     padding: 10px 0px;
+}
+
+.item-name{
+    overflow-y: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
 }
 
 .item-desc input{
@@ -304,9 +308,8 @@ ul#cat-menu > li.active > a{
 .sqr-box{
     float: left;
     width: 50px;
-    height: 50px;
+    height: 52px;
     background: rgba(101, 101, 107, 0.5) ;
-
 }
 
 .item-vote{
@@ -327,6 +330,8 @@ ul#cat-menu > li.active > a{
     background-image: url("../images/Add_Item.svg") ;
     background-size: contain;
     cursor: pointer;
+    outline: 0;
+    border:0;
 }
 
 .plus-img{

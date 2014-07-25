@@ -5,26 +5,31 @@ from __future__ import absolute_import
 import os
 import requests
 import time
-import schedule
 import json
 import logging
 import logging.handlers
 from operator import itemgetter
 from datetime import date
+
 from firebase import firebase
+from apscheduler.scheduler import Scheduler
 
 from mail import sendMail
 from mail import sendIntroMail
 from settings import FIREBASE_URL
 from settings import TOP
-from settings import JOB1_TIME
-from settings import JOB2_TIME
+from settings import JOB1_DAY_OF_WEEK
+from settings import JOB2_DAY_OF_WEEK
+from settings import JOB1_HOUR
+from settings import JOB2_HOUR
 from settings import LOG_DIR
 from settings import LOG_FILE_NAME
 from settings import LOGGER_NAME
 
 FIRE_BASE = firebase.FirebaseApplication(FIREBASE_URL, None)
 
+# Setup the scheduler
+sched = Scheduler()
 
 def setup_logger(logger_name, log_file, level=logging.INFO):
     # create logger with logger_name
@@ -111,18 +116,18 @@ def job1():
     # Set Logger Object
     logger = logging.getLogger(LOGGER_NAME)
 
-    logger.info('Job1 Start')
+    logger.info('Job-1 Start')
     # send intro mail to users
     sendIntroMail()
 
-    logger.info('Job1 Completed')
+    logger.info('Job-1 Completed')
 
 
 def job2():
     # Set Logger Object
     logger = logging.getLogger(LOGGER_NAME)
 
-    logger.info('Job2 Start')
+    logger.info('Job-2 Start')
     # Store the results
     result = {}
 
@@ -147,15 +152,13 @@ def job2():
         f.write(json.dumps(result, ensure_ascii=False))
 
     # Send mail to users
-    print 'Result:: ', result
     if result:
         sendMail(result)
-    logger.info('Job2 Completed')
+    else:
+        logger.info('No data so No mail for today')
+    logger.info('Job-2 Completed')
 
-schedule.every().day.at(JOB1_TIME).do(job1)
-schedule.every().day.at(JOB2_TIME).do(job2)
-
-if __name__ == '__main__':
+def run():
     # Create a logs direcory if not exist
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
@@ -164,7 +167,24 @@ if __name__ == '__main__':
     log_file = LOG_DIR + '/' + LOG_FILE_NAME
     setup_logger(LOGGER_NAME, log_file, level=logging.DEBUG)
 
-    # Run Scheduler
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    # Set Logger Object
+    logger = logging.getLogger(LOGGER_NAME)
+
+    logger.info('Scheduler Starts')
+
+    try:
+        # Run Scheduler
+        sched.start()
+
+        # Add jobs
+        sched.add_cron_job(job1, day_of_week=JOB1_DAY_OF_WEEK, hour=JOB1_HOUR)
+        # sched.add_cron_job(job2, day_of_week=JOB2_DAY_OF_WEEK, hour=JOB2_HOUR)
+
+        while True:
+            pass
+
+    except Exception:
+        logging.exception('Error occured in scheduler')
+
+if __name__ == '__main__':
+    run()
