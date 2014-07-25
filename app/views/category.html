@@ -56,7 +56,7 @@
                                 <div class="col-xs-2 lf-box pull-left item-tag">
                                     {{item.name.substr(0,1).toUpperCase()}}
                                 </div>
-                                <div class="col-xs-9 item-desc">{{item.name}}</div>
+                                <div class="col-xs-10 item-desc item-name">{{item.name}}</div>
                             </div>
                         </div>
                         <div class="col-xs-2 item-vote sqr-box" ng-if="todaysVotes[item_id]">
@@ -81,11 +81,11 @@
                                 {{temp.itemName.substr(0,1).toUpperCase()}}
                             </div>
                             <div class="col-xs-9 item-desc">
-                                <input type="text" name="addItemBox" ng-model="temp.itemName" placeholder="Add Item" required autofocus>
+                                <input type="text" name="addItemBox" ng-model="temp.itemName" placeholder="Add Item" required autofocus ng-minlength="1" ng-maxlength="35">
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-2 add-this sqr-box" ng-click="addNewItem();" ng-if="temp.itemName.length > 0"></div>
+                    <button class="col-xs-2 add-this sqr-box" type="submit" ng-if="temp.itemName.length > 0"></button>
                     </form>
                 </div>
             </div>
