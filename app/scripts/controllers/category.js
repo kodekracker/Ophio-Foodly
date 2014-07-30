@@ -10,8 +10,6 @@
  * Controller of the ophioFoodly
  */
 
-var app  = angular.module('ophioFoodly');
-
 app.controller('CategoryCtrl',
   function ($scope, $timeout, loader, settings, AuthenticationService, $filter, $routeParams, $firebase) {
     var firebaseRef = new Firebase(settings.FIREBASE_URL);
@@ -22,14 +20,6 @@ app.controller('CategoryCtrl',
       var todayDate = $filter('date')(new Date(), 'yyyy-MM-dd');
       var voteRef = $firebase(voteStoreRef.child(todayDate));
       return voteRef;
-    };
-
-    $scope.resultsDate = {
-      entries: [
-        {time: 1, count: 100},
-        {time: 2, count: 20},
-        {time: 3, count: 43}
-      ]
     };
 
     $scope.temp = {};
@@ -43,7 +33,8 @@ app.controller('CategoryCtrl',
     $scope.categories = [
       {href: 'healthy', title: 'Healthy Bites'},
       {href: 'snacks', title: 'Snacks'},
-      {href: 'drinks', title: 'Drinks'}
+      {href: 'drinks', title: 'Drinks'},
+      {href: 'dashboard/daily', title: 'Dashboard'}
     ];
 
     var checkConnection = function(){
@@ -84,13 +75,13 @@ app.controller('CategoryCtrl',
       var vhr = d.getHours();
       var vmin = d.getMinutes();
       if (vhr >=10 && vhr <= 17 ) {
-      var itemVotes = $scope.todaysVotes.$child(itemId);
-      itemVotes.item_name = item.name;
-      itemVotes.$save();
-      var vote = itemVotes.$child($scope.currentUser.id);
-      vote.createdAt = new Date();
-      vote.username = $scope.currentUser.displayName;
-      vote.$save();
+        var itemVotes = $scope.todaysVotes.$child(itemId);
+        itemVotes.item_name = item.name;
+        itemVotes.$save();
+        var vote = itemVotes.$child($scope.currentUser.id);
+        vote.createdAt = new Date();
+        vote.username = $scope.currentUser.displayName;
+        vote.$save();
       }
       else{
         $('.votealert').modal('toggle');
