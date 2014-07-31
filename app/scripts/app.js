@@ -17,9 +17,11 @@ var app  = angular.module('ophioFoodly', [
     'ngTouch',
     'firebase',
     'ngStorage',
+    'dangle',
+    'googlechart'
   ]);
 
-app.config(function ($routeProvider) {
+app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
     .when('/home', {
       templateUrl: 'views/home.html',
@@ -35,14 +37,20 @@ app.config(function ($routeProvider) {
       controller: 'CategoryCtrl',
       authenticationRequired: true
     })
-    .when('/dashboard', {
+    .when('/category/dashboard/:category', {
       templateUrl : 'views/dashboard.html',
-      controller : 'CategoryCtrl',
+      controller : 'DashboardCtrl',
       authenticationRequired : true
     })
     .otherwise({
       redirectTo: '/home'
     });
+}]).value('googleChartApiConfig', {
+        version: '1',
+        optionalSettings: {
+            packages: ['corechart'],
+            language: 'fr'
+        }
 });
 
 app.service('settings', function (){
@@ -59,11 +67,18 @@ app.service('settings', function (){
 
 app.service('loader', function(){
   this.loadingData =  true;
+  this.loadChart = true;
   this.getloadvalue = function(){
     return this.loadingData;
   };
+    this.getChartvalue = function(){
+    return this.loadChart;
+  };
   this.setloadvalue = function(val){
     this.loadingData = val;
+  };
+  this.setChartvalue = function(val){
+    this.loadChart = val;
   };
 
 });
