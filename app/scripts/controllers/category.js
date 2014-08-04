@@ -16,9 +16,9 @@ app.controller('CategoryCtrl',
     var itemStoreRef = firebaseRef.child('availableItems');
     var voteStoreRef = firebaseRef.child('votes');
 
-    var getTodaysVotes = function(){
+    var getTodaysVoteRef = function(){
       var todayDate = $filter('date')(new Date(), 'yyyy-MM-dd');
-      var voteRef = $firebase(voteStoreRef.child(todayDate));
+      var voteRef = voteStoreRef.child(todayDate);
       return voteRef;
     };
 
@@ -28,8 +28,8 @@ app.controller('CategoryCtrl',
     $scope.temp.loadingData = loader.getloadvalue();
     $scope.temp.currentCategory = $routeParams.category;
 
-    $scope.availableItems = $firebase(itemStoreRef);
-    $scope.todaysVotes = getTodaysVotes();
+    $scope.availableItems = $firebase(itemStoreRef).$asObject();
+    $scope.todaysVotes = $firebase(getTodaysVoteRef()).$asObject();
     $scope.categories = [
       {href: 'healthy', title: 'Healthy Bites'},
       {href: 'snacks', title: 'Snacks'},
@@ -56,30 +56,27 @@ app.controller('CategoryCtrl',
 
     $scope.currentUser = AuthenticationService.getCurrentUser();
 
-    $scope.availableItems.$on('loaded', function() {
-        loader.setloadvalue(false);
-        $scope.temp.loadingData = loader.getloadvalue();
-        $scope.$apply();
+    $scope.availableItems.$loaded().then(function() {
+      loader.setloadvalue(false);
+      $scope.temp.loadingData = loader.getloadvalue();
     });
 
-    $scope.todaysVotes.$on('loaded', function() {
-       $scope.$apply();
-    });
     $scope.getVoteCount = function(itemVotesDict){
-      return _.keys(itemVotesDict).length-1;
+      return _.keys(itemVotesDict).length;
       // console.log(itemVotesDict);
     };
 
     $scope.upVoteItem = function(itemId, item){
+      console.log(itemId);
       var d = new Date();
       var vhr = d.getHours();
       var vmin = d.getMinutes();
       if (vhr >=10 && vhr <= 17 ) {
-        var itemVotes = $scope.todaysVotes.$child(itemId);
-        itemVotes.item_name = item.name;
-        itemVotes.$save();
-        var vote = itemVotes.$child($scope.currentUser.id);
-        vote.createdAt = new Date();
+        var votes_ref = getTodaysVoteRef();
+        var item_ref = votes_ref.child(itemId);
+        var itemVotes = $firebase(item_ref).$asObject();
+        var vote = $firebase(item_ref.child($scope.currentUser.id)).$asObject();
+        vote.createdAt = new Date().toISOString();
         vote.username = $scope.currentUser.displayName;
         vote.$save();
       }
