@@ -8,16 +8,16 @@
  * Controller of the angularAppApp
  */
 
-app.controller('DashboardCtrl', function ($scope, loader, settings, $filter, $firebase, $routeParams) {
-    // firebase code
+app.controller('DashboardCtrl', function ($scope, loader, settings, $filter, $firebase, $routeParams, $timeout) {
+
     var firebaseRef = new Firebase(settings.FIREBASE_URL);
-    var database = $firebase(firebaseRef);
+    var itemStoreRef = firebaseRef.child('availableItems');
+    var voteStoreRef = firebaseRef.child('votes');
 
-
-    var getTodaysVotes = function(){
+    var getTodaysVoteRef = function(){
       var todayDate = $filter('date')(new Date(), 'yyyy-MM-dd');
-      var todaysVotes = database.votes[todayDate]
-      return todaysVotes;
+      var voteRef = voteStoreRef.child(todayDate);
+      return voteRef;
     };
 
     $scope.todaysVotes = '';
@@ -26,77 +26,83 @@ app.controller('DashboardCtrl', function ($scope, loader, settings, $filter, $fi
     $scope.temp = {};
     $scope.temp.loadingChartData = loader.getChartvalue();
 
-    var checkConnection = function(){
-      if(!navigator.onLine){
-        $('.connectionalert').modal({
-          backdrop: 'static',
-          show: true
-        });
-        $timeout(checkConnection, 1000);
-      }
-      else{
-        $('.connectionalert').modal('hide');
-      }
-    };
+    // var checkConnection = function(){
+    //   if(!navigator.onLine){
+    //     $('.connectionalert').modal({
+    //       backdrop: 'static',
+    //       show: true
+    //     });
+    //     $timeout(checkConnection, 1000);
+    //   }
+    //   else{
+    //     $('.connectionalert').modal('hide');
+    //   }
+    // };
 
-    if(!navigator.onLine){
-      $timeout(checkConnection, 1000);
-    }
+    // if(!navigator.onLine){
+    //   $timeout(checkConnection, 1000);
+    // }
 
-    database.$on('loaded', function(){
+    $firebase(firebaseRef).$asObject().$loaded().then(function(){
       loader.setChartvalue(false);
       $scope.temp.loadingChartData = loader.getChartvalue();
-      $scope.$apply();
+      $scope.availableItems = $firebase(itemStoreRef).$asArray();
+      $scope.availableItemsObj = $firebase(itemStoreRef).$asObject();
+      $scope.totalVotes = $firebase(voteStoreRef).$asArray();
 
       // get today votes and draw chart
-      $scope.todaysVotes = getTodaysVotes();
-      $scope.setDailyChartData();
-
-      // calculate all votes of each items
-      $scope.calculate();
-      $scope.setAverageChartData();
-
+      $scope.todaysVotes = $firebase(getTodaysVoteRef()).$asArray();
+      $scope.todaysVotes.$loaded().then(function(){
+        $scope.setDailyChartData();
+        // calculate all votes of each items
+        $scope.calculate();
+        $scope.setAverageChartData();
+      });
     });
 
     $scope.setDailyChartData = function(){
-      for (var key in $scope.todaysVotes) {
-                var item = {
-                    'c':[
-                        { 'v': $scope.todaysVotes[key].item_name},
-                        { 'v': $scope.getVoteCount($scope.todaysVotes[key]) }
-                    ]
-                };
-                $scope.chartObjectDaily.data['rows'].push(item);
-        }
+      _.each($scope.todaysVotes, function(vote) {
+        console.log(vote);
+        var itemId = vote.$id;
+        var item = {
+          'c':[
+            { 'v': $scope.availableItemsObj[itemId].name },
+            { 'v': $scope.getVoteCount(itemId) }
+          ]
+        };
+        console.log(item);
+        $scope.chartObjectDaily.data.rows.push(item);
+      });
     };
 
     $scope.setAverageChartData = function(){
-      for (var item_name in $scope.averageVotes) {
-                var item = {
-                    'c':[
-                        { 'v': item_name },
-                        { 'v': $scope.averageVotes[item_name] }
-                    ]
-                };
-                $scope.chartObjectAll.data['rows'].push(item);
-        }
+      _.each($scope.averageVotes, function(avg_votes, item_name){
+        var item = {
+          'c':[
+            { 'v': item_name },
+            { 'v': avg_votes }
+          ]
+        };
+        $scope.chartObjectAll.data.rows.push(item);
+      });
     };
 
     $scope.calculate = function(){
-      var items = database.availableItems;
-      var totalVotes = database.votes;
-      _.each(items, function(item, item_id){
+      var items = $scope.availableItems;
+      var totalVotes = $scope.totalVotes;
+      _.each(items, function(item){
           var totalItemVotes = 0;
-          _.each(totalVotes, function(votes, date){
-              if(_.has(votes, item_id)){
-                totalItemVotes += $scope.getVoteCount(votes[item_id]);
+          _.each(totalVotes, function(vote){
+              if(_.has(vote, item.$id)){
+                totalItemVotes += $scope.getVoteCount(item);
               }
           });
           $scope.averageVotes[item.name] = totalItemVotes;
       });
     };
+
     $scope.getVoteCount = function(itemVotesDict){
-      return _.keys(itemVotesDict).length-1;
+      return _.keys(itemVotesDict).length;
     };
 
     // chart code
