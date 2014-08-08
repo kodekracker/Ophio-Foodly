@@ -65,13 +65,22 @@ app.service('settings', function (){
   };
 });
 
+app.service('menu', function(){
+  this.categories = [
+    {name:'healthy', href: 'healthy', title: 'Healthy Bites'},
+    {name:'snacks', href: 'snacks', title: 'Snacks'},
+    {name:'drinks', href: 'drinks', title: 'Drinks'},
+    {name:'dashboard', href: 'dashboard/daily', title: 'Dashboard'}
+  ];
+});
+
 app.service('loader', function(){
   this.loadingData =  true;
   this.loadChart = true;
   this.getloadvalue = function(){
     return this.loadingData;
   };
-    this.getChartvalue = function(){
+  this.getChartvalue = function(){
     return this.loadChart;
   };
   this.setloadvalue = function(val){

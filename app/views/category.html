@@ -15,7 +15,7 @@
         </div>
         <div class="hidden-sm collapse navbar-collapse" id="bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav navbar-right" id="cat-menu">
-                <li ng-class="{active: temp.currentCategory == category.href}" ng-repeat="category in categories">
+                <li ng-class="{active: temp.currentCategory == category.name}" ng-repeat="category in categories">
                     <a href="#/category/{{category.href}}" >
                         {{category.title}}
                     </a>

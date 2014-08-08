@@ -1,23 +1,40 @@
-<nav class="navbar navbar-color navbar-fixed-top">
-	<div class="container">
-		<div class="row">
-			<div class="brandhead col-xs-5">
-                <a href="#">
-                    <img class="img-responsive" src="images/Ophio_Foodly_Logo.png">
-                </a>
-			</div>
-            <div class="col-xs-7 dashButton">
-                <button class="btn btn-success" ng-if="chartCategory=='all'" >
-                    <a href="#/category/dashboard/daily"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Today Stats</a>
-                </button>
-                <button class="btn btn-success" ng-if="chartCategory=='daily'">
-                    <a href="#/category/dashboard/all"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Overall Stats</a>
-                </button>
+<nav class="navbar navbar-color navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="brandhead">
+              <a href="#">
+                <img class="img-responsive" src="images/Ophio_Foodly_Logo.png">
+              </a>
             </div>
-		</div>
-	</div>
+        </div>
+        <div class="hidden-sm collapse navbar-collapse" id="bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav navbar-right" id="cat-menu">
+                <li ng-class="{active: temp.currentCategory == category.name}" ng-repeat="category in categories">
+                    <a href="#/category/{{category.href}}" >
+                        {{category.title}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
 <div class="container">
+    <div class="row">
+        <div class="col-xs-2 col-xs-offset-5 dashButton">
+            <button class="btn btn-success" ng-if="chartCategory=='all'" >
+                <a href="#/category/dashboard/daily"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Today Stats</a>
+            </button>
+            <button class="btn btn-success" ng-if="chartCategory=='daily'">
+                <a href="#/category/dashboard/all"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Overall Stats</a>
+            </button>
+        </div>
+    </div>
     <div class="loader" ng-if="temp.loadingChartData">
         <div id="fountainG">
             <div id="fountainG_1" class="fountainG">

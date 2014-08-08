@@ -671,9 +671,17 @@ background-color:#C9C9C9;
 
 .dashButton{
     margin-top: 25px;
-
+    margin-bottom: 25px;
+    color: #ffffff;
 }
 
 .dashButton a{
     text-decoration: none !important;
+    color: #ffffff;
+    outline: none;
+}
+
+.dashButton a:hover{
+    color: #ffffff;
+    outline: none;
 }

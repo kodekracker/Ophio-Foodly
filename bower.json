@@ -17,8 +17,6 @@
     "angularfire": "~0.8.0",
     "ngstorage": "https://github.com/gsklee/ngStorage.git#~0.3.0",
     "underscore": "~1.6.0",
-    "dangle": "*",
-    "d3": "~3.4.11",
     "angular-google-chart": "~0.0.10"
   },
   "devDependencies": {

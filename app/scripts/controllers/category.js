@@ -11,7 +11,7 @@
  */
 
 app.controller('CategoryCtrl',
-  function ($scope, $timeout, loader, settings, AuthenticationService, $filter, $routeParams, $firebase) {
+  function ($scope, $timeout, menu, loader, settings, AuthenticationService, $filter, $routeParams, $firebase) {
     var firebaseRef = new Firebase(settings.FIREBASE_URL);
     var itemStoreRef = firebaseRef.child('availableItems');
     var voteStoreRef = firebaseRef.child('votes');
@@ -27,15 +27,10 @@ app.controller('CategoryCtrl',
     $scope.temp.newItemName = '';
     $scope.temp.loadingData = loader.getloadvalue();
     $scope.temp.currentCategory = $routeParams.category;
+    $scope.categories = menu.categories;
 
     $scope.availableItems = $firebase(itemStoreRef).$asObject();
     $scope.todaysVotes = $firebase(getTodaysVoteRef()).$asObject();
-    $scope.categories = [
-      {href: 'healthy', title: 'Healthy Bites'},
-      {href: 'snacks', title: 'Snacks'},
-      {href: 'drinks', title: 'Drinks'},
-      {href: 'dashboard/daily', title: 'Dashboard'}
-    ];
 
     var checkConnection = function(){
       if(!navigator.onLine){

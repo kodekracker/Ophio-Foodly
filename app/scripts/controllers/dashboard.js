@@ -8,7 +8,7 @@
  * Controller of the angularAppApp
  */
 
-app.controller('DashboardCtrl', function ($scope, loader, settings, $filter, $firebase, $routeParams, $timeout) {
+app.controller('DashboardCtrl', function ($scope, menu, loader, settings, $filter, $firebase, $routeParams, $timeout) {
 
     var firebaseRef = new Firebase(settings.FIREBASE_URL);
     var itemStoreRef = firebaseRef.child('availableItems');
@@ -25,27 +25,15 @@ app.controller('DashboardCtrl', function ($scope, loader, settings, $filter, $fi
     $scope.chartCategory = $routeParams['category'];
     $scope.temp = {};
     $scope.temp.loadingChartData = loader.getChartvalue();
-
-    // var checkConnection = function(){
-    //   if(!navigator.onLine){
-    //     $('.connectionalert').modal({
-    //       backdrop: 'static',
-    //       show: true
-    //     });
-    //     $timeout(checkConnection, 1000);
-    //   }
-    //   else{
-    //     $('.connectionalert').modal('hide');
-    //   }
-    // };
-
-    // if(!navigator.onLine){
-    //   $timeout(checkConnection, 1000);
-    // }
+    $scope.temp.currentCategory = 'dashboard';
+    $scope.categories = menu.categories;
 
     $firebase(firebaseRef).$asObject().$loaded().then(function(){
+      // hide loader
       loader.setChartvalue(false);
       $scope.temp.loadingChartData = loader.getChartvalue();
+
+      // get all data from firebase
       $scope.availableItems = $firebase(itemStoreRef).$asArray();
       $scope.availableItemsObj = $firebase(itemStoreRef).$asObject();
       $scope.totalVotes = $firebase(voteStoreRef).$asArray();
@@ -54,6 +42,7 @@ app.controller('DashboardCtrl', function ($scope, loader, settings, $filter, $fi
       $scope.todaysVotes = $firebase(getTodaysVoteRef()).$asArray();
       $scope.todaysVotes.$loaded().then(function(){
         $scope.setDailyChartData();
+
         // calculate all votes of each items
         $scope.calculate();
         $scope.setAverageChartData();
@@ -62,15 +51,13 @@ app.controller('DashboardCtrl', function ($scope, loader, settings, $filter, $fi
 
     $scope.setDailyChartData = function(){
       _.each($scope.todaysVotes, function(vote) {
-        console.log(vote);
         var itemId = vote.$id;
         var item = {
           'c':[
             { 'v': $scope.availableItemsObj[itemId].name },
-            { 'v': $scope.getVoteCount(itemId) }
+            { 'v': $scope.getVoteCount(vote) }
           ]
         };
-        console.log(item);
         $scope.chartObjectDaily.data.rows.push(item);
       });
     };
