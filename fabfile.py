@@ -8,6 +8,7 @@ def setup():
 
 
 def build():
+    setup()
     local('grunt build')
 
 
