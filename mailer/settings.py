@@ -8,8 +8,8 @@ FIREBASE_URL = 'https://ophiofoodly.firebaseio.com'
 TOP = 3
 
 # Set the job execution day in a week (number or name of weekday (0-6 or mon,tue,wed,thu,fri,sat,sun) )
-JOB1_DAY_OF_WEEK = 'mon-fri'
-JOB2_DAY_OF_WEEK = 'mon-fri'
+JOB1_DAY_OF_WEEK = 'mon'
+JOB2_DAY_OF_WEEK = 'mon'
 
 # Set the job execution hour in a day (use 0-23 hour format)
 JOB1_HOUR = 10
